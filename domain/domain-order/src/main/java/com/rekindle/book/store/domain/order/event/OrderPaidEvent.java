@@ -12,7 +12,8 @@ public class OrderPaidEvent extends OrderEvent {
   public OrderPaidEvent(
       Order order,
       ZonedDateTime createdAt,
-      DomainEventPublisher<OrderPaidEvent> orderPaidEventDomainEventPublisher) {
+      DomainEventPublisher<OrderPaidEvent> orderPaidEventDomainEventPublisher
+  ) {
     super(order, createdAt);
     this.orderPaidEventDomainEventPublisher = orderPaidEventDomainEventPublisher;
   }

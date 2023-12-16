@@ -10,7 +10,7 @@ the<DependencyManagementExtension>().apply {
         mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
     }
 }
-dependencies{
+dependencies {
     implementation(project(":domain:domain-payment"))
     implementation(project(":payment-service:payment-application-service"))
     api(project(":infrastructure:kafka:kafka-model"))

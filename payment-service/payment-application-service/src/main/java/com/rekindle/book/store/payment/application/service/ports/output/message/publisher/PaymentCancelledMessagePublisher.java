@@ -6,4 +6,5 @@ import com.rekindle.book.store.domain.payment.event.PaymentCancelledEvent;
 
 public interface PaymentCancelledMessagePublisher extends
     DomainEventPublisher<PaymentCancelledEvent> {
+
 }

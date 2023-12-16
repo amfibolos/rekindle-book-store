@@ -6,8 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "bookstore-service")
+@ConfigurationProperties(prefix = "bookstore-service-topics")
 public class BookstoreServiceConfigData {
-    private String bookstoreApprovalRequestTopicName;
-    private String bookstoreApprovalResponseTopicName;
+
+  private String bookstoreApprovalRequestTopicName;
+  private String bookstoreApprovalResponseTopicName;
 }

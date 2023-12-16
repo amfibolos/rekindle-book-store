@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CreditEntryJpaRepository extends JpaRepository<CreditEntryEntity, UUID> {
 
-    Optional<CreditEntryEntity> findByCustomerId(UUID customerId);
+  Optional<CreditEntryEntity> findByCustomerId(UUID customerId);
 
 
 }

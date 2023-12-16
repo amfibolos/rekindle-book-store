@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class BookstoreApplicationServiceBeanConfiguration {
 
   @Bean
-  public BookstoreDomainService restaurantDomainService() {
+  public BookstoreDomainService bookstoreDomainService() {
     return new BookstoreDomainServiceImpl();
   }
 }

@@ -22,21 +22,25 @@ import lombok.Setter;
 @Entity
 public class CreditEntryEntity {
 
-    @Id
-    private UUID id;
-    private UUID customerId;
-    private BigDecimal totalCreditAmount;
+  @Id
+  private UUID id;
+  private UUID customerId;
+  private BigDecimal totalCreditAmount;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CreditEntryEntity that = (CreditEntryEntity) o;
-        return id.equals(that.id);
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreditEntryEntity that = (CreditEntryEntity) o;
+    return id.equals(that.id);
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 }

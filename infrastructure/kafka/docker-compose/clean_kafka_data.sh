@@ -1,5 +1,5 @@
 #!/bin/bash
-
+chmod +x
 # get the current directory
 rootDir=$(pwd)
 

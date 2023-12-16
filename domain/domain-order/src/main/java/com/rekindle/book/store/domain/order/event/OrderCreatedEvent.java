@@ -12,7 +12,8 @@ public class OrderCreatedEvent extends OrderEvent {
   public OrderCreatedEvent(
       Order order,
       ZonedDateTime createdAt,
-      DomainEventPublisher<OrderCreatedEvent> orderCreatedEventDomainEventPublisher) {
+      DomainEventPublisher<OrderCreatedEvent> orderCreatedEventDomainEventPublisher
+  ) {
     super(order, createdAt);
     this.orderCreatedEventDomainEventPublisher = orderCreatedEventDomainEventPublisher;
   }

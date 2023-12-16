@@ -5,7 +5,8 @@ import com.rekindle.book.store.domain.core.valueobject.BaseId;
 import java.util.UUID;
 
 public class CreditEntryId extends BaseId<UUID> {
-    public CreditEntryId(UUID value) {
-        super(value);
-    }
+
+  public CreditEntryId(UUID value) {
+    super(value);
+  }
 }

@@ -23,6 +23,7 @@ spring:
       platform: postgres
       schema-locations: classpath:init-schema.sql
       mode: always
+      data-locations: classpath:init-data.sql
 
 payment-service-topics:
   payment-request-topic-name: payment-request

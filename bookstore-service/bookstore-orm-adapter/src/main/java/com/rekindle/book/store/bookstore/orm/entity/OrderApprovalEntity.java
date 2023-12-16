@@ -23,10 +23,10 @@ import lombok.Setter;
 @Entity
 public class OrderApprovalEntity {
 
-    @Id
-    private UUID id;
-    private UUID bookstoreId;
-    private UUID orderId;
-    @Enumerated(EnumType.STRING)
-    private OrderApprovalStatus status;
+  @Id
+  private UUID id;
+  private UUID bookstoreId;
+  private UUID orderId;
+  @Enumerated(EnumType.STRING)
+  private OrderApprovalStatus status;
 }

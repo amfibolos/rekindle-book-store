@@ -14,12 +14,13 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class BookstoreApprovalRequest {
-    private String id;
-    private String sagaId;
-    private String bookstoreId;
-    private String orderId;
-    private BookstoreOrderStatus bookstoreOrderStatus;
-    private List<Product> products;
-    private BigDecimal price;
-    private Instant createdAt;
+
+  private String id;
+  private String sagaId;
+  private String bookstoreId;
+  private String orderId;
+  private BookstoreOrderStatus bookstoreOrderStatus;
+  private List<Product> products;
+  private BigDecimal price;
+  private Instant createdAt;
 }

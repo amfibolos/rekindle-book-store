@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CreditHistoryJpaRepository extends JpaRepository<CreditHistoryEntity, UUID> {
 
-    Optional<List<CreditHistoryEntity>> findByCustomerId(UUID customerId);
+  Optional<List<CreditHistoryEntity>> findByCustomerId(UUID customerId);
 
 
 }

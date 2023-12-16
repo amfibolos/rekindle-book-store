@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderMessagingDataMapper {
+
   public PaymentRequestAvroModel orderCreatedEventToPaymentRequestAvroModel(
       OrderCreatedEvent orderCreatedEvent
   ) {

@@ -4,7 +4,7 @@ plugins {
     alias { libs.plugins.spring.dependency.management }
 }
 
-dependencies{
+dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")

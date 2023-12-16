@@ -54,7 +54,8 @@ findProject(":bookstore-service:bookstore-orm-adapter")?.name = "bookstore-orm-a
 include("bookstore-service:bookstore-rest-adapter")
 findProject(":bookstore-service:bookstore-rest-adapter")?.name = "bookstore-rest-adapter"
 include("bookstore-service:bookstore-application-service")
-findProject(":bookstore-service:bookstore-application-service")?.name = "bookstore-application-service"
+findProject(":bookstore-service:bookstore-application-service")?.name =
+    "bookstore-application-service"
 include("bookstore-service:bookstore-messaging-adapter")
 findProject(":bookstore-service:bookstore-messaging-adapter")?.name = "bookstore-messaging-adapter"
 include("domain:domain-bookstore")
