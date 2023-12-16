@@ -7,6 +7,7 @@ dependencies {
     implementation(project(":payment-service:payment-application-service"))
     implementation(project(":payment-service:payment-rest-adapter"))
     implementation(project(":payment-service:payment-orm-adapter"))
+    implementation(project(":payment-service:payment-messaging-adapter"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.data:spring-data-jpa")

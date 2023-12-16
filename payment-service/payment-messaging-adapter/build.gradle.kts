@@ -10,3 +10,15 @@ the<DependencyManagementExtension>().apply {
         mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
     }
 }
+dependencies{
+    implementation(project(":domain:domain-payment"))
+    implementation(project(":payment-service:payment-application-service"))
+    api(project(":infrastructure:kafka:kafka-model"))
+    api(project(":infrastructure:kafka:kafka-config"))
+    api(project(":infrastructure:kafka:kafka-consumer"))
+    api(project(":infrastructure:kafka:kafka-producer"))
+    implementation("org.springframework.kafka:spring-kafka")
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+}

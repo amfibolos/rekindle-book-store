@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories(basePackages = {"com.rekindle.book.store.payment.orm"})
 @EntityScan(basePackages = {"com.rekindle.book.store.payment.orm"})
-@SpringBootApplication(scanBasePackages = "com.rekindle.book.store.payment")
+@SpringBootApplication(scanBasePackages = "com.rekindle.book.store")
 public class PaymentServiceApplication {
 
   public static void main(String[] args) {
