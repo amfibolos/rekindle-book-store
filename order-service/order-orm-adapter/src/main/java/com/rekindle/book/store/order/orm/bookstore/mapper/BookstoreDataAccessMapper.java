@@ -1,11 +1,11 @@
 package com.rekindle.book.store.order.orm.bookstore.mapper;
 
 
-import com.rekindle.book.store.domain.core.entity.Bookstore;
-import com.rekindle.book.store.domain.core.entity.Product;
 import com.rekindle.book.store.domain.core.valueobject.BookstoreId;
 import com.rekindle.book.store.domain.core.valueobject.Money;
 import com.rekindle.book.store.domain.core.valueobject.ProductId;
+import com.rekindle.book.store.domain.order.entity.Bookstore;
+import com.rekindle.book.store.domain.order.entity.Product;
 import com.rekindle.book.store.order.orm.bookstore.entity.BookstoreEntity;
 import com.rekindle.book.store.order.orm.bookstore.exception.BookstoreDataAccessException;
 import java.util.List;

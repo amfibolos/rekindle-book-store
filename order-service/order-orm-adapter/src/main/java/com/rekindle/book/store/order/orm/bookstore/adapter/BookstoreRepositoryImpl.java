@@ -1,7 +1,7 @@
 package com.rekindle.book.store.order.orm.bookstore.adapter;
 
 
-import com.rekindle.book.store.domain.core.entity.Bookstore;
+import com.rekindle.book.store.domain.order.entity.Bookstore;
 import com.rekindle.book.store.order.application.service.domain.ports.output.repository.BookstoreRepository;
 import com.rekindle.book.store.order.orm.bookstore.entity.BookstoreEntity;
 import com.rekindle.book.store.order.orm.bookstore.mapper.BookstoreDataAccessMapper;

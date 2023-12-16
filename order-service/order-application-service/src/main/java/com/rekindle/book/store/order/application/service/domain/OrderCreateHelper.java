@@ -1,14 +1,15 @@
 package com.rekindle.book.store.order.application.service.domain;
 
 
-import com.rekindle.book.store.domain.core.entity.Bookstore;
-import com.rekindle.book.store.domain.core.entity.Customer;
-import com.rekindle.book.store.domain.core.entity.Order;
-import com.rekindle.book.store.domain.core.event.OrderCreatedEvent;
-import com.rekindle.book.store.domain.core.exception.OrderDomainException;
-import com.rekindle.book.store.domain.core.services.OrderDomainService;
+import com.rekindle.book.store.domain.order.entity.Bookstore;
+import com.rekindle.book.store.domain.order.entity.Customer;
+import com.rekindle.book.store.domain.order.entity.Order;
+import com.rekindle.book.store.domain.order.event.OrderCreatedEvent;
+import com.rekindle.book.store.domain.order.exception.OrderDomainException;
+import com.rekindle.book.store.domain.order.services.OrderDomainService;
 import com.rekindle.book.store.order.application.service.domain.dto.create.CreateOrderCommand;
 import com.rekindle.book.store.order.application.service.domain.mapper.OrderDataMapper;
+import com.rekindle.book.store.order.application.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.rekindle.book.store.order.application.service.domain.ports.output.repository.BookstoreRepository;
 import com.rekindle.book.store.order.application.service.domain.ports.output.repository.CustomerRepository;
 import com.rekindle.book.store.order.application.service.domain.ports.output.repository.OrderRepository;
@@ -31,19 +32,22 @@ public class OrderCreateHelper {
   private final BookstoreRepository bookstoreRepository;
 
   private final OrderDataMapper orderDataMapper;
+  private final OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher;
 
   public OrderCreateHelper(
       OrderDomainService orderDomainService,
       OrderRepository orderRepository,
       CustomerRepository customerRepository,
       BookstoreRepository bookstoreRepository,
-      OrderDataMapper orderDataMapper
+      OrderDataMapper orderDataMapper,
+      OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher
   ) {
     this.orderDomainService = orderDomainService;
     this.orderRepository = orderRepository;
     this.customerRepository = customerRepository;
     this.bookstoreRepository = bookstoreRepository;
     this.orderDataMapper = orderDataMapper;
+    this.orderCreatedEventDomainEventPublisher = orderCreatedEventDomainEventPublisher;
   }
 
   @Transactional
@@ -52,7 +56,7 @@ public class OrderCreateHelper {
     Bookstore bookStore = checkBookstore(createOrderCommand);
     Order order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
     OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order,
-        bookStore);
+        bookStore, orderCreatedEventDomainEventPublisher);
     saveOrder(order);
     log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
     return orderCreatedEvent;

@@ -1,9 +1,9 @@
 package com.rekindle.book.store.order.application.service.domain;
 
 
-import com.rekindle.book.store.domain.core.entity.Order;
-import com.rekindle.book.store.domain.core.exception.OrderNotFoundException;
-import com.rekindle.book.store.domain.core.valueobject.TrackingId;
+import com.rekindle.book.store.domain.order.entity.Order;
+import com.rekindle.book.store.domain.order.exception.OrderNotFoundException;
+import com.rekindle.book.store.domain.order.valueobject.TrackingId;
 import com.rekindle.book.store.order.application.service.domain.dto.tracking.TrackOrderQuery;
 import com.rekindle.book.store.order.application.service.domain.dto.tracking.TrackOrderResponse;
 import com.rekindle.book.store.order.application.service.domain.mapper.OrderDataMapper;

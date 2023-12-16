@@ -12,8 +12,8 @@ the<DependencyManagementExtension>().apply {
 }
 dependencies {
     implementation(project(":order-service:order-application-service"))
-    implementation(project(":domain:domain-core"))
-    api("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation(project(":domain:domain-order"))
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")

@@ -1,7 +1,7 @@
 package com.rekindle.book.store.order.application.service.domain;
 
 
-import com.rekindle.book.store.domain.core.event.OrderCreatedEvent;
+import com.rekindle.book.store.domain.order.event.OrderCreatedEvent;
 import com.rekindle.book.store.order.application.service.domain.dto.create.CreateOrderCommand;
 import com.rekindle.book.store.order.application.service.domain.dto.create.CreateOrderCommandResponse;
 import com.rekindle.book.store.order.application.service.domain.mapper.OrderDataMapper;

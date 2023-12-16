@@ -11,7 +11,7 @@ the<DependencyManagementExtension>().apply {
     }
 }
 dependencies {
-    implementation(project(":domain:domain-core"))
+    implementation(project(":domain:domain-order"))
     implementation(project(":domain:domain-application"))
     implementation(project(":order-service:order-application-service"))
     implementation("org.springframework.boot:spring-boot-starter-web")

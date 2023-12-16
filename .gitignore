@@ -49,7 +49,6 @@ Thumbs.db
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
@@ -58,9 +57,12 @@ build/
 
 ### STS ###
 .apt_generated
-.classpath
 .factorypath
-.project
 .settings
 .springBeans
 .sts4-cache
+
+### KAFKA ###
+./infrastructure/kafka/docker-compose/volumes/kafka/*
+./infrastructure/kafka/docker-compose/volumes/zookeeper/data/*
+./infrastructure/kafka/docker-compose/volumes/zookeeper/transactions/*

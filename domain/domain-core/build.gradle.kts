@@ -11,7 +11,6 @@ the<DependencyManagementExtension>().apply {
     }
 }
 dependencies {
-    api(project(":domain:domain-common"))
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

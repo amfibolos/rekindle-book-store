@@ -1,8 +1,8 @@
 package com.rekindle.book.store.order.orm.order.adapter;
 
 
-import com.rekindle.book.store.domain.core.entity.Order;
-import com.rekindle.book.store.domain.core.valueobject.TrackingId;
+import com.rekindle.book.store.domain.order.entity.Order;
+import com.rekindle.book.store.domain.order.valueobject.TrackingId;
 import com.rekindle.book.store.order.application.service.domain.ports.output.repository.OrderRepository;
 import com.rekindle.book.store.order.orm.order.mapper.OrderDataAccessMapper;
 import com.rekindle.book.store.order.orm.order.repository.OrderJpaRepository;

@@ -1,0 +1,39 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: "gateway-server-ms"
+  profiles:
+    active: "local"
+  config:
+    import: "optional:configserver:http://${CONFIG_HOST:localhost}:9000/"
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:9001/eureka/
+info:
+  app:
+    name: "gateway-server"
+    description: "Server for handling network traffic"
+    version: "1.0.0"

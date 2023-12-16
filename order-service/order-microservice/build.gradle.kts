@@ -8,6 +8,7 @@ dependencies {
     implementation(project(":order-service:order-orm-adapter"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.data:spring-data-jpa")
 }
 
 application {

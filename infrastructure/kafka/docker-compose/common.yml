@@ -1,0 +1,3 @@
+networks:
+  rekindle-bookstore-system-network:
+    driver: bridge

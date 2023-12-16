@@ -1,7 +1,7 @@
 package com.rekindle.book.store.order.orm.customer.adapter;
 
 
-import com.rekindle.book.store.domain.core.entity.Customer;
+import com.rekindle.book.store.domain.order.entity.Customer;
 import com.rekindle.book.store.order.application.service.domain.ports.output.repository.CustomerRepository;
 import com.rekindle.book.store.order.orm.customer.mapper.CustomerDataAccessMapper;
 import com.rekindle.book.store.order.orm.customer.repository.CustomerJpaRepository;

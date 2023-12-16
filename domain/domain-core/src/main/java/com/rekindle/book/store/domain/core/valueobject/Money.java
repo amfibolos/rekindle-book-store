@@ -1,6 +1,5 @@
 package com.rekindle.book.store.domain.core.valueobject;
 
-import com.rekindle.book.store.domain.common.valueobject.ValueObject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;

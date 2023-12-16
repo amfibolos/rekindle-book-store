@@ -2,8 +2,8 @@ package com.rekindle.book.store.order.rest.exception;
 
 import com.rekindle.book.store.domain.application.exception.ErrorDTO;
 import com.rekindle.book.store.domain.application.exception.GlobalExceptionHandler;
-import com.rekindle.book.store.domain.core.exception.OrderDomainException;
-import com.rekindle.book.store.domain.core.exception.OrderNotFoundException;
+import com.rekindle.book.store.domain.order.exception.OrderDomainException;
+import com.rekindle.book.store.domain.order.exception.OrderNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
