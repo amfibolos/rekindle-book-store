@@ -64,3 +64,7 @@ include("domain:domain-order")
 findProject(":domain:domain-order")?.name = "domain-order"
 include("domain:domain-payment")
 findProject(":domain:domain-payment")?.name = "domain-payment"
+include("infrastructure:saga")
+findProject(":infrastructure:saga")?.name = "saga"
+include("infrastructure:outbox")
+findProject(":infrastructure:outbox")?.name = "outbox"

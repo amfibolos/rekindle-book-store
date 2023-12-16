@@ -7,6 +7,7 @@ import com.rekindle.book.store.domain.payment.event.PaymentCompletedEvent;
 import com.rekindle.book.store.domain.payment.event.PaymentFailedEvent;
 import com.rekindle.book.store.kafka.avro.model.PaymentRequestAvroModel;
 import com.rekindle.book.store.kafka.avro.model.PaymentResponseAvroModel;
+import com.rekindle.book.store.kafka.avro.model.PaymentStatus;
 import com.rekindle.book.store.payment.application.service.dto.PaymentRequest;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
