@@ -4,8 +4,10 @@ plugins {
     alias { libs.plugins.spring.dependency.management }
 }
 dependencies {
+    implementation(project(":order-service:order-application-service"))
     implementation(project(":order-service:order-rest-adapter"))
     implementation(project(":order-service:order-orm-adapter"))
+    implementation(project(":order-service:order-messaging-adapter"))
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.data:spring-data-jpa")

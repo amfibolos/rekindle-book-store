@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories(basePackages = {"com.rekindle.book.store.order.orm"})
 @EntityScan(basePackages = {"com.rekindle.book.store.order.orm"})
-@SpringBootApplication(scanBasePackages = "com.rekindle.book.store.order")
+@SpringBootApplication(scanBasePackages = "com.rekindle.book.store")
 public class OrderServiceApplication {
 
   public static void main(String[] args) {

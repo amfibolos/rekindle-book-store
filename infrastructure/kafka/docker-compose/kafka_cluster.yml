@@ -76,3 +76,26 @@ services:
       ZK_HOSTS: "zookeeper:2181"
     networks:
       - ${REKINDLE_NETWORK}
+  akhq:
+    container_name: akhq
+    image: tchiotludo/akhq:latest
+    ports: 8060:8060
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            kafka-dev:
+              properties:
+                bootstrap.servers: "kafka-broker-1:9092"
+    depends_on:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+      - schema-registry
+    networks:
+      - ${REKINDLE_NETWORK}
+    links:
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+      - schema-registry

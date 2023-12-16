@@ -11,6 +11,6 @@ the<DependencyManagementExtension>().apply {
     }
 }
 dependencies {
-    implementation(libs.org.apache.avro)
+    api(libs.org.apache.avro)
     implementation(libs.io.confluent.kafka.avro.serializer)
 }
