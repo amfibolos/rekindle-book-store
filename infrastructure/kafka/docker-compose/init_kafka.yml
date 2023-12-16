@@ -1,6 +1,6 @@
 services:
   init-kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:${KAFKA_VERSION}
     entrypoint: [ '/bin/sh', '-c' ]
     command: |
       "
@@ -24,4 +24,4 @@ services:
       kafka-topics --bootstrap-server kafka-broker-1:9092 --list
       "
     networks:
-      - rekindle-bookstore-system-network
+      - ${REKINDLE_NETWORK}

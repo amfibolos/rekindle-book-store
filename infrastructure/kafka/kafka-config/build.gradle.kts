@@ -11,4 +11,10 @@ the<DependencyManagementExtension>().apply {
     }
 }
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    implementation("org.springframework.boot:spring-boot")
+    implementation("org.springframework.kafka:spring-kafka")
+    implementation(libs.org.apache.avro)
 }

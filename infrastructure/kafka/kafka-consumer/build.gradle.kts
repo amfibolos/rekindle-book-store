@@ -11,4 +11,10 @@ the<DependencyManagementExtension>().apply {
     }
 }
 dependencies {
+    implementation(project(":infrastructure:kafka:kafka-config"))
+    implementation("org.springframework.kafka:spring-kafka")
+    implementation(libs.org.apache.avro)
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 }

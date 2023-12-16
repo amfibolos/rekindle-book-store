@@ -1,6 +1,6 @@
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:latest
+    image: confluentinc/cp-zookeeper:${ZOOKEEPER_VERSION}
     hostname: zookeeper
     ports:
       - "2181:2181"
@@ -16,4 +16,4 @@ services:
       - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
       - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log"
     networks:
-      - rekindle-bookstore-system-network
+      - ${REKINDLE_NETWORK}

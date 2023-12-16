@@ -123,7 +123,7 @@ public class PaymentRequestHelper {
     paymentRepository.save(payment);
     if (failureMessages.isEmpty()) {
       creditEntryRepository.save(creditEntry);
-      creditHistoryRepository.save(creditHistories.get(creditHistories.size() - 1));
+      creditHistoryRepository.save(creditHistories.getLast());
     }
   }
 
