@@ -1,8 +1,10 @@
 package com.rekindle.book.store.saga;
 
-public interface SagaStep<T> {
+import com.rekindle.book.store.domain.core.event.DomainEvent;
 
-  void process(T data);
+public interface SagaStep<T, S extends DomainEvent, U extends DomainEvent> {
 
-  void rollback(T data);
+  S process(T data);
+
+  U rollback(T data);
 }

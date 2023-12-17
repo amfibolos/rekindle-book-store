@@ -12,6 +12,7 @@ the<DependencyManagementExtension>().apply {
 }
 dependencies {
     implementation(project(":domain:domain-order"))
+    implementation(project(":infrastructure:saga"))
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation(libs.springframework.spring.transactions)
     implementation("org.springframework.boot:spring-boot-starter-logging")

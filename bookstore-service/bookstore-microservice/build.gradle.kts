@@ -14,5 +14,5 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.rekindle.book.store.order.microservice.OrderServiceApplication")
+    mainClass.set("com.rekindle.book.store.bookstore.microservice.BookstoreServiceApplication")
 }
