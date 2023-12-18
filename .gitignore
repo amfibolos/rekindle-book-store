@@ -63,6 +63,7 @@ Thumbs.db
 .sts4-cache
 
 ### KAFKA ###
-./infrastructure/kafka/docker-compose/volumes/kafka/*
-./infrastructure/kafka/docker-compose/volumes/zookeeper/data/*
-./infrastructure/kafka/docker-compose/volumes/zookeeper/transactions/*
+./docker-compose/rekindle-local/docker-compose/volumes/kafka/*
+./docker-compose/rekindle-local/volumes/zookeeper/data/*
+./docker-compose/rekindle-local/volumes/zookeeper/transactions/*
+./docker-compose/rekindle-local/volumes/postgre/*

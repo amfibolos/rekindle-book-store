@@ -194,8 +194,6 @@ services:
     depends_on:
       config-server:
         condition: service_healthy
-      auth-server:
-        condition: service_healthy
       bookstore-service:
         condition: service_healthy
       order-service:
