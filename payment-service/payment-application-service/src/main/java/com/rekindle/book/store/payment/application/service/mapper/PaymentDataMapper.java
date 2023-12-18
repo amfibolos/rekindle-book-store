@@ -6,6 +6,7 @@ import com.rekindle.book.store.domain.core.valueobject.Money;
 import com.rekindle.book.store.domain.core.valueobject.OrderId;
 import com.rekindle.book.store.domain.payment.entity.Payment;
 import com.rekindle.book.store.payment.application.service.dto.PaymentRequest;
+import com.rekindle.book.store.payment.application.service.dto.PaymentStatusDto;
 import java.util.UUID;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,14 @@ public class PaymentDataMapper {
         .orderId(new OrderId(UUID.fromString(paymentRequest.getOrderId())))
         .customerId(new CustomerId(UUID.fromString(paymentRequest.getCustomerId())))
         .price(new Money(paymentRequest.getPrice()))
+        .build();
+  }
+
+  public PaymentStatusDto paymentToPaymentStatusDto(Payment payment){
+    return PaymentStatusDto.builder()
+        .customerId(payment.getCustomerId().getValue())
+        .price(payment.getPrice().getAmount())
+        .status(payment.getPaymentStatus())
         .build();
   }
 }

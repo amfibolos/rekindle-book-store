@@ -1,12 +1,12 @@
 server:
-  port: 9010
+  port: 8023
 spring:
   application:
-    name: "auth-server-ms"
+    name: "authorization-server-ms"
   profiles:
     active: "local"
   config:
-    import: "configserver:http://${CONFIG_HOST:localhost}:9000/"
+    import: "optional:configserver:http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8021}/"
 management:
   endpoints:
     web:
@@ -21,11 +21,3 @@ management:
 endpoints:
   shutdown:
     enabled: true
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST:localhost}:9001/eureka/

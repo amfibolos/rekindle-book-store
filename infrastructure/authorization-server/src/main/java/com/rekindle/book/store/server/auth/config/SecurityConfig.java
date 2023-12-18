@@ -10,6 +10,7 @@ import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -37,6 +38,12 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableWebSecurity
 public class SecurityConfig {
+
+  @Value("${AUTH_HOST:localhost}")
+  private String host;
+
+  @Value("${AUTH_PORT:8023}")
+  private String port;
 
   @Bean
   public RegisteredClientRepository registeredClientRepository() {
@@ -160,7 +167,7 @@ public class SecurityConfig {
   @Bean
   public AuthorizationServerSettings authorizationServerSettings() {
     return AuthorizationServerSettings.builder()
-        .issuer("http://127.0.0.1:9010")
+        .issuer("http://" + host + ":" + port)
         .build();
   }
 

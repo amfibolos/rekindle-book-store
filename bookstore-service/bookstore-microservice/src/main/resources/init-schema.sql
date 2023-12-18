@@ -1,7 +1,7 @@
 DROP SCHEMA IF EXISTS bookstore CASCADE;
 
 CREATE SCHEMA bookstore;
-
+DROP EXTENSION IF EXISTS "uuid-ossp";
 CREATE
 EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -64,6 +64,9 @@ ALTER TABLE bookstore.bookstore_products
         ON UPDATE NO ACTION
         ON DELETE RESTRICT
     NOT VALID;
+
+ALTER TABLE bookstore.bookstore_products
+    ALTER COLUMN id SET DEFAULT uuid_generate_v4();
 
 DROP
 MATERIALIZED VIEW IF EXISTS bookstore.order_bookstore_m_view;

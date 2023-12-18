@@ -8,6 +8,10 @@ springframework-spring-tx = "6.1.1"
 apache-avro = "1.11.3"
 mockito-core = "5.8.0"
 spring-boot-kafka-core = "2.8.2"
+org-springdoc-springdoc-openapi-starter-common = "2.2.0"
+org-springdoc-springdoc-openapi-starter-webmvc-ui = "2.2.0"
+jib-version = "3.4.0"
+spring-cloud-version = "2023.0.0"
 
 [libraries]
 org-apache-avro = { module = "org.apache.avro:avro", version.ref = "apache-avro" }
@@ -15,7 +19,10 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-cor
 springframework-spring-transactions = { module = "org.springframework:spring-tx", version.ref = "springframework-spring-tx" }
 io-confluent-kafka-avro-serializer = { module = "io.confluent:kafka-avro-serializer", version.ref = "io-confluent-kafka-avro-serializer" }
 org-springframework-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "spring-boot-kafka-core" }
+org-springdoc-springdoc-openapi-starter-common = { module = "org.springdoc:springdoc-openapi-starter-common", version.ref = "org-springdoc-springdoc-openapi-starter-common" }
+org-springdoc-springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "org-springdoc-springdoc-openapi-starter-webmvc-ui" }
 
 [plugins]
 spring-boot-plugin = { id = "org.springframework.boot", version.ref = "spring-boot-version" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-version" }
+google-jib = { id = "com.google.cloud.tools.jib", version.ref = "jib-version" }

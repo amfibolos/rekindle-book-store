@@ -13,6 +13,7 @@ the<DependencyManagementExtension>().apply {
 dependencies {
     implementation(project(":domain:domain-payment"))
     implementation("org.springframework.boot:spring-boot")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation(libs.springframework.spring.transactions)
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")

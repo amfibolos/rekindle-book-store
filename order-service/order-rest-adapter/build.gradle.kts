@@ -18,4 +18,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    api(libs.org.springdoc.springdoc.openapi.starter.webmvc.ui)
+    api(libs.org.springdoc.springdoc.openapi.starter.common)
 }

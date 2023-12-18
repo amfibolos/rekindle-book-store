@@ -13,6 +13,7 @@ the<DependencyManagementExtension>().apply {
 dependencies {
     implementation("org.springframework:spring-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework:spring-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

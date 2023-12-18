@@ -4,6 +4,7 @@ import com.rekindle.book.store.domain.application.exception.ErrorDTO;
 import com.rekindle.book.store.domain.application.exception.GlobalExceptionHandler;
 import com.rekindle.book.store.domain.order.exception.OrderDomainException;
 import com.rekindle.book.store.domain.order.exception.OrderNotFoundException;
+import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,8 +22,9 @@ public class OrderExceptionHandler extends GlobalExceptionHandler {
   public ErrorDTO handleException(OrderDomainException orderDomainException) {
     log.error(orderDomainException.getMessage(), orderDomainException);
     return ErrorDTO.builder()
-        .code(HttpStatus.BAD_REQUEST.getReasonPhrase())
-        .message(orderDomainException.getMessage())
+        .errorCode(HttpStatus.BAD_REQUEST)
+        .errorMessage(orderDomainException.getMessage())
+        .errorTime(LocalDateTime.now())
         .build();
   }
 
@@ -32,8 +34,10 @@ public class OrderExceptionHandler extends GlobalExceptionHandler {
   public ErrorDTO handleException(OrderNotFoundException orderNotFoundException) {
     log.error(orderNotFoundException.getMessage(), orderNotFoundException);
     return ErrorDTO.builder()
-        .code(HttpStatus.NOT_FOUND.getReasonPhrase())
-        .message(orderNotFoundException.getMessage())
+        .errorCode(HttpStatus.NOT_FOUND)
+        .errorMessage(orderNotFoundException.getMessage())
+        .errorTime(LocalDateTime.now())
         .build();
   }
+
 }

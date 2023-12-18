@@ -8,6 +8,7 @@ import lombok.Builder;
 
 @Builder
 public record CreateOrderCommandResponse(@NotNull UUID orderTrackingId,
+                                         @NotNull UUID orderId,
                                          @NotNull OrderStatus orderStatus,
                                          @NotNull String message) {
 

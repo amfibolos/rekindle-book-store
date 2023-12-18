@@ -68,3 +68,13 @@ include("infrastructure:saga")
 findProject(":infrastructure:saga")?.name = "saga"
 include("infrastructure:outbox")
 findProject(":infrastructure:outbox")?.name = "outbox"
+include("customer-service:customer-application-service")
+findProject(":customer-service:customer-application-service")?.name = "customer-application-service"
+include("customer-service:customer-microservice")
+findProject(":customer-service:customer-microservice")?.name = "customer-microservice"
+include("customer-service:customer-orm-adapter")
+findProject(":customer-service:customer-orm-adapter")?.name = "customer-orm-adapter"
+include("domain:domain-customer")
+findProject(":domain:domain-customer")?.name = "domain-customer"
+include("customer-service:customer-rest-adapter")
+findProject(":customer-service:customer-rest-adapter")?.name = "customer-rest-adapter"

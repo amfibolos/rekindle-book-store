@@ -1,3 +1,6 @@
+networks:
+  rekindle-bookstore-network:
+    driver: bridge
 services:
   init-kafka:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}

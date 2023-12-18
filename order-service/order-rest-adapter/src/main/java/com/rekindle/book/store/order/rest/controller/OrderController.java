@@ -5,6 +5,7 @@ import com.rekindle.book.store.order.application.service.domain.dto.create.Creat
 import com.rekindle.book.store.order.application.service.domain.dto.tracking.TrackOrderQuery;
 import com.rekindle.book.store.order.application.service.domain.dto.tracking.TrackOrderResponse;
 import com.rekindle.book.store.order.application.service.domain.ports.input.service.OrderApplicationService;
+import io.swagger.v3.oas.annotations.Operation;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -27,6 +28,9 @@ public class OrderController {
     this.orderApplicationService = orderApplicationService;
   }
 
+  @Operation(
+      summary = "Create purchase order from Rekindle Bookstore Network",
+      description = "REST API POST method to make a purchase")
   @PostMapping
   public ResponseEntity<CreateOrderCommandResponse> createOrder(
       @RequestBody CreateOrderCommand createOrderCommand
@@ -39,8 +43,13 @@ public class OrderController {
     return ResponseEntity.ok(createOrderResponse);
   }
 
+  @Operation(
+      summary = "Get purchase status information by tracking id",
+      description = "REST API GET method to fetch purchase status")
   @GetMapping("/{trackingId}")
-  public ResponseEntity<TrackOrderResponse> getOrderByTrackingId(@PathVariable("trackingId") UUID trackingId) {
+  public ResponseEntity<TrackOrderResponse> getOrderByTrackingId(
+      @PathVariable("trackingId") UUID trackingId
+  ) {
     TrackOrderResponse trackOrderResponse =
         orderApplicationService.trackOrder(
             TrackOrderQuery.builder().orderTrackingId(trackingId).build());

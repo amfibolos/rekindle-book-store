@@ -2,11 +2,18 @@ package com.rekindle.book.store.payment.application.service;
 
 
 import com.rekindle.book.store.domain.core.valueobject.CustomerId;
+import com.rekindle.book.store.domain.core.valueobject.Money;
 import com.rekindle.book.store.domain.payment.entity.CreditEntry;
 import com.rekindle.book.store.domain.payment.entity.CreditHistory;
 import com.rekindle.book.store.domain.payment.entity.Payment;
 import com.rekindle.book.store.domain.payment.event.PaymentEvent;
+import com.rekindle.book.store.domain.payment.exception.PaymentDomainException;
 import com.rekindle.book.store.domain.payment.services.PaymentDomainService;
+import com.rekindle.book.store.domain.payment.valueobject.CreditEntryId;
+import com.rekindle.book.store.domain.payment.valueobject.CreditHistoryId;
+import com.rekindle.book.store.domain.payment.valueobject.TransactionType;
+import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryCommand;
+import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryResponse;
 import com.rekindle.book.store.payment.application.service.dto.PaymentRequest;
 import com.rekindle.book.store.payment.application.service.exception.PaymentApplicationServiceException;
 import com.rekindle.book.store.payment.application.service.mapper.PaymentDataMapper;
@@ -16,7 +23,9 @@ import com.rekindle.book.store.payment.application.service.ports.output.message.
 import com.rekindle.book.store.payment.application.service.ports.output.repository.CreditEntryRepository;
 import com.rekindle.book.store.payment.application.service.ports.output.repository.CreditHistoryRepository;
 import com.rekindle.book.store.payment.application.service.ports.output.repository.PaymentRepository;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -93,6 +102,37 @@ public class PaymentRequestHelper {
     return paymentEvent;
   }
 
+  public CreateCreditEntryResponse persistCreditEntry(CreateCreditEntryCommand command) {
+    Money money = new Money(command.totalPrice());
+    if (!money.isGreaterThanZero()){
+      log.error("Credit amount must be greater than 0");
+      throw new PaymentDomainException("Credit amount must be greater than 0");
+    }
+    Optional<CreditEntry> creditEntry = creditEntryRepository.findByCustomerId(
+        new CustomerId(command.customerId()));
+    try {
+      if (creditEntry.isPresent()) {
+        creditEntry.get().addCreditAmount(money);
+        creditEntryRepository.save(creditEntry.get());
+        persistNewCreditHistoryEntry(creditEntry.get(), money);
+        return new CreateCreditEntryResponse(creditEntry.get().getId().getValue());
+      } else {
+        CreditEntry newEntry = CreditEntry.builder()
+            .creditEntryId(new CreditEntryId(UUID.randomUUID()))
+            .customerId(new CustomerId(command.customerId()))
+            .totalCreditAmount(money)
+            .build();
+        creditEntryRepository.save(newEntry);
+        persistNewCreditHistoryEntry(newEntry, newEntry.getTotalCreditAmount());
+        return new CreateCreditEntryResponse(newEntry.getId().getValue());
+      }
+    } catch (Exception e) {
+      log.error("Creation of new credit entry for customer {} has failed with: {}",
+          command.customerId(), e.getMessage());
+      throw new PaymentApplicationServiceException("Could not save new credit entry: ", e);
+    }
+  }
+
   private CreditEntry getCreditEntry(CustomerId customerId) {
     Optional<CreditEntry> creditEntry = creditEntryRepository.findByCustomerId(customerId);
     if (creditEntry.isEmpty()) {
@@ -127,4 +167,17 @@ public class PaymentRequestHelper {
     }
   }
 
+  private void persistNewCreditHistoryEntry(CreditEntry creditEntry, Money money) {
+    creditHistoryRepository.save(CreditHistory.builder()
+        .creditHistoryId(new CreditHistoryId(UUID.randomUUID()))
+        .customerId(creditEntry.getCustomerId())
+        .amount(money)
+        .transactionType(TransactionType.CREDIT)
+        .build());
+  }
+
+  public List<CreditHistory> retrieveCreditHistoryByCustomerId(UUID customerId) {
+    return creditHistoryRepository.findByCustomerId(new CustomerId(customerId))
+        .orElse(Collections.emptyList());
+  }
 }

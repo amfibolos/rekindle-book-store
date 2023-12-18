@@ -1,66 +1,24 @@
 server:
   port: 8182
-
+spring:
+  application:
+    name: "payment-microservice"
+  config:
+    import: "configserver:http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8021}/"
 logging:
   level:
     com.rekindle.book.store: DEBUG
-
-spring:
-  jpa:
-    open-in-view: false
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=payment&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
-    username: postgres
-    password: admin
-    driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      platform: postgres
-      schema-locations: classpath:init-schema.sql
-      mode: always
-      data-locations: classpath:init-data.sql
-
-payment-service-topics:
-  payment-request-topic-name: payment-request
-  payment-response-topic-name: payment-response
-
-kafka-config:
-  bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
-  schema-registry-url-key: schema.registry.url
-  schema-registry-url: http://localhost:8081
-  num-of-partitions: 3
-  replication-factor: 3
-
-kafka-producer-config:
-  key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
-  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
-  compression-type: snappy # best balance for CPU usage, compression ratio, speed and network utilization
-  acks: all # kafka producer will wait for acknowledgment from each broker before confirming the produce operation - best practice for resilience
-  batch-size: 16384 # 16 kB - default
-  batch-size-boost-factor: 100 # boost factor to allow increasing the batch size to send the data in batches
-  linger-ms: 5 # adds a delay on a producer before sending the data when there is a light load. Producer will send data to broker even if the batch size limit is not reached. Increases the throughput on the producer side
-  request-timeout-ms: 60000 # timeout after which the producer will throw the timeout exception
-  retry-count: 5 # the producer retry count in case of error
-
-kafka-consumer-config:
-  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
-  payment-consumer-group-id: payment-topic-consumer # group id ensures the consumer will read from the last read item instead of the beginning (matches offset with group id)
-  auto-offset-reset: earliest # if no offset remains. Kafka will read from the beginning
-  specific-avro-reader-key: specific.avro.reader
-  specific-avro-reader: true
-  batch-listener: true
-  auto-startup: true
-  concurrency-level: 3 # equal to partition number
-  session-timeout-ms: 10000
-  heartbeat-interval-ms: 3000
-  max-poll-interval-ms: 300000
-  max-poll-records: 500
-  max-partition-fetch-bytes-default: 1048576
-  max-partition-fetch-bytes-boost-factor: 1
-  poll-timeout-ms: 150
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true

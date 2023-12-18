@@ -1,18 +1,21 @@
 server:
-  port: 9002
+  port: 8024
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${AUTH_HOST:localhost}:${AUTH_PORT:8023}
   application:
     name: "gateway-server-ms"
-  profiles:
-    active: "local"
   config:
-    import: "optional:configserver:http://${CONFIG_HOST:localhost}:9000/"
+    import: "optional:configserver:http://${CONFIG_HOST:localhost}:${CONFIG_PORT:8021}/"
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
-          lower-case-service-id: true
+          lowerCaseServiceId: true
 management:
   endpoints:
     web:
@@ -24,16 +27,6 @@ management:
   info:
     env:
       enabled: true
-eureka:
-  instance:
-    preferIpAddress: true
-  client:
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST:localhost}:9001/eureka/
-info:
-  app:
-    name: "gateway-server"
-    description: "Server for handling network traffic"
-    version: "1.0.0"
+endpoints:
+  shutdown:
+    enabled: true

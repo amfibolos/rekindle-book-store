@@ -2,6 +2,7 @@ plugins {
     id("rekindle.book.store.java-application-conventions")
     alias { libs.plugins.spring.boot.plugin }
     alias { libs.plugins.spring.dependency.management }
+    alias { libs.plugins.google.jib }
 }
 
 dependencies {
@@ -19,4 +20,7 @@ dependencyManagement {
 }
 application {
     mainClass.set("com.rekindle.book.store.server.eureka.EurekaServerApplication")
+}
+jib {
+    from.image = "amazoncorretto:21.0.1"
 }

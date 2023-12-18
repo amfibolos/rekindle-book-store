@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 8021
 spring:
   application:
     name: "config-server-ms"
@@ -24,3 +24,11 @@ management:
     health:
       probes:
         enabled: true
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/

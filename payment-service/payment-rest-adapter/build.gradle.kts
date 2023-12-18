@@ -13,8 +13,11 @@ the<DependencyManagementExtension>().apply {
 dependencies {
     implementation(project(":domain:domain-payment"))
     implementation(project(":domain:domain-application"))
+    implementation(project(":payment-service:payment-application-service"))
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    api(libs.org.springdoc.springdoc.openapi.starter.webmvc.ui)
+    api(libs.org.springdoc.springdoc.openapi.starter.common)
 }
