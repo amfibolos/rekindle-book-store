@@ -2,8 +2,9 @@ networks:
   rekindle-bookstore-network:
     driver: bridge
 services:
-  init-kafka:
+  init-kafka-topics:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}
+    container_name: init-kafka-topics
     entrypoint: [ '/bin/sh', '-c' ]
     command: |
       "
@@ -29,4 +30,6 @@ services:
       kafka-topics --bootstrap-server kafka-broker-1:9092 --list
       "
     networks:
-      - ${REKINDLE_NETWORK}
+      rekindle-bookstore-network:
+        aliases:
+          - "init-kafka-topics"

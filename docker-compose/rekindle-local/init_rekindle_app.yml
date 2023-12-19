@@ -103,6 +103,7 @@ services:
       retries: 10
       start_period: 10s
     environment:
+      - BROKER_PORT=9092
       - SCHEMA_HOST=schema-registry
       - FIRST_BROKER_HOST=kafka-broker-1
       - SECOND_BROKER_HOST=kafka-broker-2
@@ -131,6 +132,7 @@ services:
       retries: 10
       start_period: 10s
     environment:
+      - BROKER_PORT=9092
       - SCHEMA_HOST=schema-registry
       - FIRST_BROKER_HOST=kafka-broker-1
       - SECOND_BROKER_HOST=kafka-broker-2
@@ -159,6 +161,7 @@ services:
       retries: 10
       start_period: 10s
     environment:
+      - BROKER_PORT=9092
       - SCHEMA_HOST=schema-registry
       - FIRST_BROKER_HOST=kafka-broker-1
       - SECOND_BROKER_HOST=kafka-broker-2
