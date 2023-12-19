@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping(value = "/api/v1/bookstore", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/api/v1/bookstores", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class BookstoreController {
 
   private final BookstoreRepository bookstoreRepository;

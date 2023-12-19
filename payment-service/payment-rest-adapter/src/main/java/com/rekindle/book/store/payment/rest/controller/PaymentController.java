@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/api/v1/payment", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/api/v1/payments", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class PaymentController {
 
   private final PaymentApplicationService paymentApplicationService;

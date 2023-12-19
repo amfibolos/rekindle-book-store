@@ -179,7 +179,7 @@ services:
     image: "customer-microservice"
     container_name: customerservice-container
     ports:
-      - "8182:8182"
+      - "8184:8184"
     healthcheck:
       test: "curl --fail --silent localhost:8184/actuator/health/readiness | grep UP || exit 1"
       interval: 10s

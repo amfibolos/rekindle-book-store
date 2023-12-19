@@ -27,29 +27,29 @@ public class GatewayServerApplication {
   public RouteLocator rekindleGlobalReroute(RouteLocatorBuilder builder) {
     return builder
         .routes()
-        .route("bookstore_route_1", r -> r.path("/rekindle/bookstore")
-            .filters(f -> f.rewritePath("/rekindle/bookstore",
-                "/api/v1/bookstore"))
+        .route("bookstore_route_1", r -> r.path("/rekindle/bookstores")
+            .filters(f -> f.rewritePath("/rekindle/bookstores",
+                "/api/v1/bookstores"))
             .uri("lb://BOOKSTORE-MICROSERVICE"))
-        .route("bookstore_route_2", r -> r.path("/rekindle/bookstore/**")
-            .filters(f -> f.rewritePath("/rekindle/bookstore/(?<segment>.*)",
-                "/api/v1/bookstore/${segment}"))
+        .route("bookstore_route_2", r -> r.path("/rekindle/bookstores/**")
+            .filters(f -> f.rewritePath("/rekindle/bookstores/(?<segment>.*)",
+                "/api/v1/bookstores/${segment}"))
             .uri("lb://BOOKSTORE-MICROSERVICE"))
-        .route("payment_route_1", r -> r.path("/rekindle/payment")
-            .filters(f -> f.rewritePath("/rekindle/payment",
-                "/api/v1/payment"))
+        .route("payment_route_1", r -> r.path("/rekindle/payments")
+            .filters(f -> f.rewritePath("/rekindle/payments",
+                "/api/v1/payments"))
             .uri("lb://PAYMENT-MICROSERVICE"))
-        .route("payment_route_2", r -> r.path("/rekindle/payment/**")
-            .filters(f -> f.rewritePath("/rekindle/payment/(?<segment>.*)",
-                "/api/v1/payment/${segment}"))
+        .route("payment_route_2", r -> r.path("/rekindle/payments/**")
+            .filters(f -> f.rewritePath("/rekindle/payments/(?<segment>.*)",
+                "/api/v1/payments/${segment}"))
             .uri("lb://PAYMENT-MICROSERVICE"))
-        .route("order_route_1", r -> r.path("/rekindle/order")
-            .filters(f -> f.rewritePath("/rekindle/order",
-                "/api/v1/order"))
+        .route("order_route_1", r -> r.path("/rekindle/orders")
+            .filters(f -> f.rewritePath("/rekindle/orders",
+                "/api/v1/orders"))
             .uri("lb://ORDER-MICROSERVICE"))
-        .route("order_route_2", r -> r.path("/rekindle/order/**")
-            .filters(f -> f.rewritePath("/rekindle/order/(?<segment>.*)",
-                "/api/v1/order/${segment}"))
+        .route("order_route_2", r -> r.path("/rekindle/orders/**")
+            .filters(f -> f.rewritePath("/rekindle/orders/(?<segment>.*)",
+                "/api/v1/orders/${segment}"))
             .uri("lb://ORDER-MICROSERVICE"))
         .route("authorization_route", r -> r.path("/oauth2/token")
             .uri("lb://AUTHORIZATION-SERVER-MS"))

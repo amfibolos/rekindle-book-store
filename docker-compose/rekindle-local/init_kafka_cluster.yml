@@ -19,7 +19,7 @@ services:
       test: [ "CMD-SHELL","echo ruok | nc 127.0.0.1 2181 | grep imok || exit -1" ]
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 10
     volumes:
       - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
       - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log"
@@ -42,7 +42,7 @@ services:
       test: kafka-topics --bootstrap-server kafka-broker-1:9092 --list
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 10
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -67,7 +67,7 @@ services:
       test: kafka-topics --bootstrap-server kafka-broker-2:9092 --list
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 10
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -94,7 +94,7 @@ services:
       test: kafka-topics --bootstrap-server kafka-broker-3:9092 --list
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 10
     depends_on:
       zookeeper:
         condition: service_healthy
@@ -120,7 +120,7 @@ services:
       test: curl --output /dev/null --silent --head --fail http://schema-registry:8081/subjects
       interval: 10s
       timeout: 5s
-      retries: 3
+      retries: 10
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
