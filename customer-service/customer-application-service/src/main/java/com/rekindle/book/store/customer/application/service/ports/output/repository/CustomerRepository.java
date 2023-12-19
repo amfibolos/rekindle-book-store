@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface CustomerRepository {
 
-    Customer createCustomer(Customer customer);
+  Customer createCustomer(Customer customer);
 
-    Customer getCustomerById(UUID customerId);
+  Customer getCustomerById(UUID customerId);
 }

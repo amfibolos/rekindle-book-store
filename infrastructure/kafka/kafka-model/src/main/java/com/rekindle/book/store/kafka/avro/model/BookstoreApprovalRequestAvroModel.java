@@ -41,6 +41,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Return the BinaryMessageEncoder instance used by this class.
+   *
    * @return the message encoder used by this class
    */
   public static BinaryMessageEncoder<BookstoreApprovalRequestAvroModel> getEncoder() {
@@ -49,6 +50,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Return the BinaryMessageDecoder instance used by this class.
+   *
    * @return the message decoder used by this class
    */
   public static BinaryMessageDecoder<BookstoreApprovalRequestAvroModel> getDecoder() {
@@ -56,7 +58,9 @@ public class BookstoreApprovalRequestAvroModel extends
   }
 
   /**
-   * Create a new BinaryMessageDecoder instance for this class that uses the specified {@link SchemaStore}.
+   * Create a new BinaryMessageDecoder instance for this class that uses the specified
+   * {@link SchemaStore}.
+   *
    * @param resolver a {@link SchemaStore} used to find schemas by fingerprint
    * @return a BinaryMessageDecoder instance for this class backed by the given SchemaStore
    */
@@ -68,6 +72,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Serializes this BookstoreApprovalRequestAvroModel to a ByteBuffer.
+   *
    * @return a buffer holding the serialized data for this instance
    * @throws java.io.IOException if this instance could not be serialized
    */
@@ -77,9 +82,11 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Deserializes a BookstoreApprovalRequestAvroModel from a ByteBuffer.
+   *
    * @param b a byte buffer holding serialized data for an instance of this class
    * @return a BookstoreApprovalRequestAvroModel instance decoded from the given buffer
-   * @throws java.io.IOException if the given bytes could not be deserialized into an instance of this class
+   * @throws java.io.IOException if the given bytes could not be deserialized into an instance of
+   *                             this class
    */
   public static BookstoreApprovalRequestAvroModel fromByteBuffer(
       java.nio.ByteBuffer b
@@ -97,23 +104,23 @@ public class BookstoreApprovalRequestAvroModel extends
   private java.time.Instant createdAt;
 
   /**
-   * Default constructor.  Note that this does not initialize fields
-   * to their default values from the schema.  If that is desired then
-   * one should use <code>newBuilder()</code>.
+   * Default constructor.  Note that this does not initialize fields to their default values from
+   * the schema.  If that is desired then one should use <code>newBuilder()</code>.
    */
   public BookstoreApprovalRequestAvroModel() {
   }
 
   /**
    * All-args constructor.
-   * @param id The new value for id
-   * @param sagaId The new value for sagaId
-   * @param bookstoreId The new value for bookstoreId
-   * @param orderId The new value for orderId
+   *
+   * @param id                   The new value for id
+   * @param sagaId               The new value for sagaId
+   * @param bookstoreId          The new value for bookstoreId
+   * @param orderId              The new value for orderId
    * @param bookstoreOrderStatus The new value for bookstoreOrderStatus
-   * @param products The new value for products
-   * @param price The new value for price
-   * @param createdAt The new value for createdAt
+   * @param products             The new value for products
+   * @param price                The new value for price
+   * @param createdAt            The new value for createdAt
    */
   public BookstoreApprovalRequestAvroModel(
       String id, String sagaId, String bookstoreId, String orderId,
@@ -215,6 +222,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'id' field.
+   *
    * @return The value of the 'id' field.
    */
   public String getId() {
@@ -224,6 +232,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'id' field.
+   *
    * @param value the value to set.
    */
   public void setId(String value) {
@@ -232,6 +241,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'sagaId' field.
+   *
    * @return The value of the 'sagaId' field.
    */
   public String getSagaId() {
@@ -241,6 +251,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'sagaId' field.
+   *
    * @param value the value to set.
    */
   public void setSagaId(String value) {
@@ -249,6 +260,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'bookstoreId' field.
+   *
    * @return The value of the 'bookstoreId' field.
    */
   public String getBookstoreId() {
@@ -258,6 +270,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'bookstoreId' field.
+   *
    * @param value the value to set.
    */
   public void setBookstoreId(String value) {
@@ -266,6 +279,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'orderId' field.
+   *
    * @return The value of the 'orderId' field.
    */
   public String getOrderId() {
@@ -275,6 +289,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'orderId' field.
+   *
    * @param value the value to set.
    */
   public void setOrderId(String value) {
@@ -283,6 +298,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'bookstoreOrderStatus' field.
+   *
    * @return The value of the 'bookstoreOrderStatus' field.
    */
   public BookstoreOrderStatus getBookstoreOrderStatus() {
@@ -292,6 +308,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'bookstoreOrderStatus' field.
+   *
    * @param value the value to set.
    */
   public void setBookstoreOrderStatus(BookstoreOrderStatus value) {
@@ -300,6 +317,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'products' field.
+   *
    * @return The value of the 'products' field.
    */
   public java.util.List<Product> getProducts() {
@@ -309,6 +327,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'products' field.
+   *
    * @param value the value to set.
    */
   public void setProducts(java.util.List<Product> value) {
@@ -317,6 +336,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'price' field.
+   *
    * @return The value of the 'price' field.
    */
   public java.math.BigDecimal getPrice() {
@@ -326,6 +346,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'price' field.
+   *
    * @param value the value to set.
    */
   public void setPrice(java.math.BigDecimal value) {
@@ -334,6 +355,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Gets the value of the 'createdAt' field.
+   *
    * @return The value of the 'createdAt' field.
    */
   public java.time.Instant getCreatedAt() {
@@ -343,6 +365,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Sets the value of the 'createdAt' field.
+   *
    * @param value the value to set.
    */
   public void setCreatedAt(java.time.Instant value) {
@@ -351,6 +374,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Creates a new BookstoreApprovalRequestAvroModel RecordBuilder.
+   *
    * @return A new BookstoreApprovalRequestAvroModel RecordBuilder
    */
   public static Builder newBuilder() {
@@ -359,6 +383,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
   /**
    * Creates a new BookstoreApprovalRequestAvroModel RecordBuilder by copying an existing Builder.
+   *
    * @param other The existing builder to copy.
    * @return A new BookstoreApprovalRequestAvroModel RecordBuilder
    */
@@ -371,7 +396,9 @@ public class BookstoreApprovalRequestAvroModel extends
   }
 
   /**
-   * Creates a new BookstoreApprovalRequestAvroModel RecordBuilder by copying an existing BookstoreApprovalRequestAvroModel instance.
+   * Creates a new BookstoreApprovalRequestAvroModel RecordBuilder by copying an existing
+   * BookstoreApprovalRequestAvroModel instance.
+   *
    * @param other The existing instance to copy.
    * @return A new BookstoreApprovalRequestAvroModel RecordBuilder
    */
@@ -400,13 +427,16 @@ public class BookstoreApprovalRequestAvroModel extends
     private java.math.BigDecimal price;
     private java.time.Instant createdAt;
 
-    /** Creates a new Builder */
+    /**
+     * Creates a new Builder
+     */
     private Builder() {
       super(SCHEMA$, MODEL$);
     }
 
     /**
      * Creates a Builder by copying an existing Builder.
+     *
      * @param other The existing Builder to copy.
      */
     private Builder(Builder other) {
@@ -448,6 +478,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Creates a Builder by copying an existing BookstoreApprovalRequestAvroModel instance
+     *
      * @param other The existing instance to copy.
      */
     private Builder(BookstoreApprovalRequestAvroModel other) {
@@ -489,6 +520,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'id' field.
+     *
      * @return The value.
      */
     public String getId() {
@@ -498,6 +530,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'id' field.
+     *
      * @param value The value of 'id'.
      * @return This builder.
      */
@@ -510,6 +543,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'id' field has been set.
+     *
      * @return True if the 'id' field has been set, false otherwise.
      */
     public boolean hasId() {
@@ -519,6 +553,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'id' field.
+     *
      * @return This builder.
      */
     public Builder clearId() {
@@ -529,6 +564,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'sagaId' field.
+     *
      * @return The value.
      */
     public String getSagaId() {
@@ -538,6 +574,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'sagaId' field.
+     *
      * @param value The value of 'sagaId'.
      * @return This builder.
      */
@@ -550,6 +587,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'sagaId' field has been set.
+     *
      * @return True if the 'sagaId' field has been set, false otherwise.
      */
     public boolean hasSagaId() {
@@ -559,6 +597,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'sagaId' field.
+     *
      * @return This builder.
      */
     public Builder clearSagaId() {
@@ -569,6 +608,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'bookstoreId' field.
+     *
      * @return The value.
      */
     public String getBookstoreId() {
@@ -578,6 +618,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'bookstoreId' field.
+     *
      * @param value The value of 'bookstoreId'.
      * @return This builder.
      */
@@ -590,6 +631,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'bookstoreId' field has been set.
+     *
      * @return True if the 'bookstoreId' field has been set, false otherwise.
      */
     public boolean hasBookstoreId() {
@@ -599,6 +641,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'bookstoreId' field.
+     *
      * @return This builder.
      */
     public Builder clearBookstoreId() {
@@ -609,6 +652,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'orderId' field.
+     *
      * @return The value.
      */
     public String getOrderId() {
@@ -618,6 +662,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'orderId' field.
+     *
      * @param value The value of 'orderId'.
      * @return This builder.
      */
@@ -630,6 +675,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'orderId' field has been set.
+     *
      * @return True if the 'orderId' field has been set, false otherwise.
      */
     public boolean hasOrderId() {
@@ -639,6 +685,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'orderId' field.
+     *
      * @return This builder.
      */
     public Builder clearOrderId() {
@@ -649,6 +696,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'bookstoreOrderStatus' field.
+     *
      * @return The value.
      */
     public BookstoreOrderStatus getBookstoreOrderStatus() {
@@ -658,6 +706,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'bookstoreOrderStatus' field.
+     *
      * @param value The value of 'bookstoreOrderStatus'.
      * @return This builder.
      */
@@ -670,6 +719,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'bookstoreOrderStatus' field has been set.
+     *
      * @return True if the 'bookstoreOrderStatus' field has been set, false otherwise.
      */
     public boolean hasBookstoreOrderStatus() {
@@ -679,6 +729,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'bookstoreOrderStatus' field.
+     *
      * @return This builder.
      */
     public Builder clearBookstoreOrderStatus() {
@@ -689,6 +740,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'products' field.
+     *
      * @return The value.
      */
     public java.util.List<Product> getProducts() {
@@ -698,6 +750,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'products' field.
+     *
      * @param value The value of 'products'.
      * @return This builder.
      */
@@ -710,6 +763,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'products' field has been set.
+     *
      * @return True if the 'products' field has been set, false otherwise.
      */
     public boolean hasProducts() {
@@ -719,6 +773,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'products' field.
+     *
      * @return This builder.
      */
     public Builder clearProducts() {
@@ -729,6 +784,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'price' field.
+     *
      * @return The value.
      */
     public java.math.BigDecimal getPrice() {
@@ -738,6 +794,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'price' field.
+     *
      * @param value The value of 'price'.
      * @return This builder.
      */
@@ -750,6 +807,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'price' field has been set.
+     *
      * @return True if the 'price' field has been set, false otherwise.
      */
     public boolean hasPrice() {
@@ -759,6 +817,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'price' field.
+     *
      * @return This builder.
      */
     public Builder clearPrice() {
@@ -769,6 +828,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Gets the value of the 'createdAt' field.
+     *
      * @return The value.
      */
     public java.time.Instant getCreatedAt() {
@@ -778,6 +838,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Sets the value of the 'createdAt' field.
+     *
      * @param value The value of 'createdAt'.
      * @return This builder.
      */
@@ -790,6 +851,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Checks whether the 'createdAt' field has been set.
+     *
      * @return True if the 'createdAt' field has been set, false otherwise.
      */
     public boolean hasCreatedAt() {
@@ -799,6 +861,7 @@ public class BookstoreApprovalRequestAvroModel extends
 
     /**
      * Clears the value of the 'createdAt' field.
+     *
      * @return This builder.
      */
     public Builder clearCreatedAt() {

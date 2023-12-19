@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface CustomerApplicationService {
 
-    CreateCustomerResponse createCustomer(@Valid CreateCustomerCommand createCustomerCommand);
+  CreateCustomerResponse createCustomer(@Valid CreateCustomerCommand createCustomerCommand);
 
-    Customer fetchCustomer(UUID customerId);
+  Customer fetchCustomer(UUID customerId);
 }

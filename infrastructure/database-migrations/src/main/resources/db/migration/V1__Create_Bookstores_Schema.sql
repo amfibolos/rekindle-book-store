@@ -1,7 +1,8 @@
 DROP SCHEMA IF EXISTS bookstore CASCADE;
 
 CREATE SCHEMA bookstore;
-DROP EXTENSION IF EXISTS "uuid-ossp";
+DROP
+EXTENSION IF EXISTS "uuid-ossp";
 CREATE
 EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -108,6 +109,7 @@ DROP trigger IF EXISTS refresh_order_bookstore_m_view ON bookstore.bookstore_pro
 CREATE trigger refresh_order_bookstore_m_view
     after INSERT OR
 UPDATE OR
-DELETE OR truncate
+DELETE
+OR truncate
 ON bookstore.bookstore_products FOR each statement
     EXECUTE PROCEDURE bookstore.refresh_order_bookstore_m_view();

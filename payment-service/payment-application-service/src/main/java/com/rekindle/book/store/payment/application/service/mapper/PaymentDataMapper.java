@@ -21,7 +21,7 @@ public class PaymentDataMapper {
         .build();
   }
 
-  public PaymentStatusDto paymentToPaymentStatusDto(Payment payment){
+  public PaymentStatusDto paymentToPaymentStatusDto(Payment payment) {
     return PaymentStatusDto.builder()
         .customerId(payment.getCustomerId().getValue())
         .price(payment.getPrice().getAmount())

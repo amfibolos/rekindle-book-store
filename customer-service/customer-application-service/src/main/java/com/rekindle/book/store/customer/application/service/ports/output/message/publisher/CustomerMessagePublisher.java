@@ -5,6 +5,6 @@ import com.rekindle.book.store.domain.customer.event.CustomerCreatedEvent;
 
 public interface CustomerMessagePublisher {
 
-    void publish(CustomerCreatedEvent customerCreatedEvent);
+  void publish(CustomerCreatedEvent customerCreatedEvent);
 
 }

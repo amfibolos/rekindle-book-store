@@ -11,8 +11,9 @@ import lombok.Getter;
 @Builder
 @AllArgsConstructor
 public class CreateCustomerResponse {
-    @NotNull
-    private final UUID customerId;
-    @NotNull
-    private final String message;
+
+  @NotNull
+  private final UUID customerId;
+  @NotNull
+  private final String message;
 }

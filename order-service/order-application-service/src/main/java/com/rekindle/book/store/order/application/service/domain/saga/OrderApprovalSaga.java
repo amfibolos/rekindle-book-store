@@ -33,9 +33,9 @@ public class OrderApprovalSaga implements
 
   @Override
   @Transactional
-  public EmptyEvent process(BookstoreApprovalResponse restaurantApprovalResponse) {
-    log.info("Approving order with id: {}", restaurantApprovalResponse.getOrderId());
-    Order order = orderSagaHelper.findOrder(restaurantApprovalResponse.getOrderId());
+  public EmptyEvent process(BookstoreApprovalResponse bookstoreApprovalResponse) {
+    log.info("Approving order with id: {}", bookstoreApprovalResponse.getOrderId());
+    Order order = orderSagaHelper.findOrder(bookstoreApprovalResponse.getOrderId());
     orderDomainService.approveOrder(order);
     orderSagaHelper.saveOrder(order);
     log.info("Order with id: {} is approved", order.getId().getValue());
@@ -44,11 +44,11 @@ public class OrderApprovalSaga implements
 
   @Override
   @Transactional
-  public OrderCancelledEvent rollback(BookstoreApprovalResponse restaurantApprovalResponse) {
-    log.info("Cancelling order with id: {}", restaurantApprovalResponse.getOrderId());
-    Order order = orderSagaHelper.findOrder(restaurantApprovalResponse.getOrderId());
+  public OrderCancelledEvent rollback(BookstoreApprovalResponse bookstoreApprovalResponse) {
+    log.info("Cancelling order with id: {}", bookstoreApprovalResponse.getOrderId());
+    Order order = orderSagaHelper.findOrder(bookstoreApprovalResponse.getOrderId());
     OrderCancelledEvent domainEvent = orderDomainService.cancelOrderPayment(order,
-        restaurantApprovalResponse.getFailureMessages(),
+        bookstoreApprovalResponse.getFailureMessages(),
         orderCancelledPaymentRequestMessagePublisher);
     orderSagaHelper.saveOrder(order);
     log.info("Order with id: {} is cancelling", order.getId().getValue());

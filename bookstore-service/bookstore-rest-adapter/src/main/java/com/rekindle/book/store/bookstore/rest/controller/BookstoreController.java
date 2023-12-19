@@ -28,6 +28,7 @@ public class BookstoreController {
   public BookstoreController(BookstoreRepository bookstoreRepository) {
     this.bookstoreRepository = bookstoreRepository;
   }
+
   @Operation(
       summary = "Register new Bookstore in Rekindle Bookstore Network",
       description = "REST API POST method to add new bookstore to Rekindle Network")

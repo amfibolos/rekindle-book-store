@@ -23,7 +23,6 @@ import com.rekindle.book.store.payment.application.service.ports.output.message.
 import com.rekindle.book.store.payment.application.service.ports.output.repository.CreditEntryRepository;
 import com.rekindle.book.store.payment.application.service.ports.output.repository.CreditHistoryRepository;
 import com.rekindle.book.store.payment.application.service.ports.output.repository.PaymentRepository;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -104,7 +103,7 @@ public class PaymentRequestHelper {
 
   public CreateCreditEntryResponse persistCreditEntry(CreateCreditEntryCommand command) {
     Money money = new Money(command.totalPrice());
-    if (!money.isGreaterThanZero()){
+    if (!money.isGreaterThanZero()) {
       log.error("Credit amount must be greater than 0");
       throw new PaymentDomainException("Credit amount must be greater than 0");
     }

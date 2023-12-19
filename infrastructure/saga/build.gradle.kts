@@ -11,5 +11,5 @@ the<DependencyManagementExtension>().apply {
     }
 }
 dependencies {
-implementation(project(":domain:domain-core"))
+    implementation(project(":domain:domain-core"))
 }

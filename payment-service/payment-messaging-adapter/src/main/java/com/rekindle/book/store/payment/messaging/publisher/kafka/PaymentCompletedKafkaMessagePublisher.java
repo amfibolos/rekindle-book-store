@@ -1,7 +1,6 @@
 package com.rekindle.book.store.payment.messaging.publisher.kafka;
 
 
-import ch.qos.logback.core.util.TimeUtil;
 import com.rekindle.book.store.domain.payment.event.PaymentCompletedEvent;
 import com.rekindle.book.store.kafka.avro.model.PaymentResponseAvroModel;
 import com.rekindle.book.store.kafka.producer.KafkaMessageHelper;

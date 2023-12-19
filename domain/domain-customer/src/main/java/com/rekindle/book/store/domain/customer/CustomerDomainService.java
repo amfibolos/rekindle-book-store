@@ -6,6 +6,6 @@ import com.rekindle.book.store.domain.customer.event.CustomerCreatedEvent;
 
 public interface CustomerDomainService {
 
-    CustomerCreatedEvent validateAndInitiateCustomer(Customer customer);
+  CustomerCreatedEvent validateAndInitiateCustomer(Customer customer);
 
 }

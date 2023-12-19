@@ -20,9 +20,9 @@ import lombok.Setter;
 @Entity
 public class CustomerEntity {
 
-    @Id
-    private UUID id;
-    private String username;
-    private String firstName;
-    private String lastName;
+  @Id
+  private UUID id;
+  private String username;
+  private String firstName;
+  private String lastName;
 }
