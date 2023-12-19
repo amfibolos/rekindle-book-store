@@ -15,7 +15,7 @@
 * [Gradle 8.5](https://gradle.org/install/)
 * [Spring Framework](https://spring.io/)
 * [Kafka](https://kafka.apache.org/downloads)
-* [Postres](https://www.postgresql.org/download/)
+* [PostgreSQL](https://www.postgresql.org/download/)
 
 # <span style="color:yellow;"> Getting Started
 
