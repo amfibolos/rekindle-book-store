@@ -17,16 +17,15 @@
 
 * In the root project directory execute the following commands using either gradle or ./gradlew
 * These will build source code and prepare docker images
-
-><ul>
+### 1. Source Code build and docker images setup
 ><li>gradle clean build</li>
 ><li>gradle jibDockerBuild</li>
-></ul>
+
+### 2. Infrastructure and ecosystem setup
 
 * Then go to ./docker-compose/rekindle-local directory
 * and execute the following commands
 
-><ul>
 ><li>cd docker-compose/rekindle-local</li>
 ><li>docker-compose -f init_kafka_cluster.yml up -d</li>
 * wait till all services have started
@@ -34,8 +33,14 @@
 * this will add necessary kafka topics to the boostrap servers. Can be deleted afterwards
 ><li>docker-compose -f init_rekindle_app.yml up -d</li>
 * this will start all microservices in sequence where some require kafka
-</ul>
 
+### 3. Database data migration
+
+* Then go to infrastructure/database-migrations directory from repository root
+and run the following command
+><li>gradle flywayMigrate</li>
+
+### THAT'S IT. You're good to go :)
 
 ## Documentation
 
@@ -51,13 +56,13 @@
 
 ### Infrastructure
 * Rekindle Bookstore network is handled internally by:
-> config-server
+> config-server [handles microservices configuration locally]
 > 
-> authorization-server
+> authorization-server [for OAuth2 authorization]
 > 
-> eureka-discovery-server
+> eureka-discovery-server [for internal microservice discovery]
 > 
-> gateway-server
+> gateway-server [for inbound traffic and load balancing]
 
 ### Infrastructure - events
 * Orders made in rekindle network are handled seamlessly via events orchestrated by Apache Kafka
@@ -67,7 +72,22 @@
 > 
 > schema registry (with avro schema)
 > 
-> kafka manager
+> kafka manager [available at http://localhost:9000]
+>
+> [kafka manager requires manual cluster configuration
+> 1. go to cluster dropdown and add new cluster
+> 2. Specify its name
+> 3. In cluster host type zookeeper:2181
+> 4. Now you can see available topics and brokers
+>]
+
+### Infrastructure - database
+* At the moment there is one central database but more will be introduced for each microservice
+* To connect to the PostgreSQL Database please install the latest version
+><li>connection url: jdbc:postgresql://localhost:5432/postgres</li>
+><li>username: postgres</li>
+><li>password: admin</li>
+><li>schemas: bookstore,customer,order,payment</li>
 
 ### Endpoints are documented using OpenApi
 * http://localhost:8181/swagger-ui/index.html [order-microservice]
@@ -85,7 +105,7 @@
 ><li>http://localhost:8024/rekindle/bookstores</li>
 ><li>http://localhost:8024/rekindle/customers</li>
 
-### Oauth2 authorization
+### Oauth 2.0 authorization
 * Rekindle Network uses Oauth2 JTW authorization
 ><li>http://localhost:8023/oauth2/token [authorization server]</li>
 ><li>client id: internal-ms</li>
@@ -101,7 +121,7 @@
 ><li>./docker-compose/rekindle-local/volumes/zookeeper/transactions/*</li>
 ><li>./docker-compose/rekindle-local/volumes/postgre/*</li>
 * In case of docker container removals, contents of these folders also have to be deleted
-* before creating the build anew
+* manually before creating the build anew
 
 # STILL UNDER CONSTRUCTION
 ### Additional Security
