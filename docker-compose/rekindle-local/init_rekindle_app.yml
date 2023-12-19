@@ -175,6 +175,30 @@ services:
       rekindle-bookstore-network:
         aliases:
           - "paymentservice-container"
+  customer-service:
+    image: "customer-microservice"
+    container_name: customerservice-container
+    ports:
+      - "8182:8182"
+    healthcheck:
+      test: "curl --fail --silent localhost:8184/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - SPRING_PROFILES_ACTIVE=postgre,eureka
+      - POSTGRES_HOST=postgresqldb-container
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      config-server:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "customerservice-container"
   gateway-server:
     image: "gateway-server"
     container_name: gatewayserver-container
@@ -199,6 +223,8 @@ services:
       order-service:
         condition: service_healthy
       payment-service:
+        condition: service_healthy
+      customer-service:
         condition: service_healthy
     networks:
       rekindle-bookstore-network:

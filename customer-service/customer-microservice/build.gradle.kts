@@ -1,19 +1,28 @@
 plugins {
-    id("java")
+    id("rekindle.book.store.java-application-conventions")
+    alias { libs.plugins.spring.boot.plugin }
+    alias { libs.plugins.spring.dependency.management }
+    alias { libs.plugins.google.jib }
 }
-
-group = "com.rekindle.book.store"
-version = "unspecified"
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation(project(":customer-service:customer-application-service"))
+    implementation(project(":customer-service:customer-rest-adapter"))
+    implementation(project(":customer-service:customer-orm-adapter"))
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.data:spring-data-jpa")
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 }
-
-tasks.test {
-    useJUnitPlatform()
+extra["springCloudVersion"] = "2023.0.0"
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
+}
+application {
+    mainClass.set("com.rekindle.book.store.order.microservice.OrderServiceApplication")
+}
+jib {
+    from.image = "amazoncorretto:21.0.1"
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/orders", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/api/v1/orders", produces = {MediaType.APPLICATION_JSON_VALUE})
 public class OrderController {
 
   private final OrderApplicationService orderApplicationService;

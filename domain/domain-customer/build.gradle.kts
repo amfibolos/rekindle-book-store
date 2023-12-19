@@ -1,19 +1,18 @@
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+
 plugins {
-    id("java")
+    id("rekindle.book.store.java-library-conventions")
+    alias { libs.plugins.spring.boot.plugin }.apply(false)
+    alias { libs.plugins.spring.dependency.management }
 }
-
-group = "com.rekindle.book.store"
-version = "unspecified"
-
-repositories {
-    mavenCentral()
+the<DependencyManagementExtension>().apply {
+    imports {
+        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    }
 }
-
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-}
-
-tasks.test {
-    useJUnitPlatform()
+    api(project(":domain:domain-core"))
+    implementation("org.springframework.boot:spring-boot-starter-logging")
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
 }
