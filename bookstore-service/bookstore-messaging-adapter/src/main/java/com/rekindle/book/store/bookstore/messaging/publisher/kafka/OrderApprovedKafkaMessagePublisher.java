@@ -39,6 +39,9 @@ public class OrderApprovedKafkaMessagePublisher implements OrderApprovedMessageP
     log.info("Received OrderApprovedEvent for order id: {}", orderId);
 
     try {
+      //TODO So I do not forget about it
+      //Sleep to simulate heavy traffic and longer response time
+      Thread.sleep(15000);
       BookstoreApprovalResponseAvroModel bookstoreApprovalResponseAvroModel =
           bookstoreMessagingDataMapper
               .orderApprovedEventToBookstoreApprovalResponseAvroModel(orderApprovedEvent);

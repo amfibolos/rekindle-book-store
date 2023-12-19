@@ -42,7 +42,7 @@ public class PaymentCompletedKafkaMessagePublisher implements PaymentCompletedMe
     try {
       //TODO So I do not forget about it
       //Sleep to simulate heavy traffic and longer response time
-      Thread.sleep(7000);
+      Thread.sleep(15000);
       PaymentResponseAvroModel paymentResponseAvroModel =
           paymentMessagingDataMapper.paymentCompletedEventToPaymentResponseAvroModel(domainEvent);
 
