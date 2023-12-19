@@ -78,3 +78,5 @@ include("domain:domain-customer")
 findProject(":domain:domain-customer")?.name = "domain-customer"
 include("customer-service:customer-rest-adapter")
 findProject(":customer-service:customer-rest-adapter")?.name = "customer-rest-adapter"
+include("infrastructure:database-migrations")
+findProject(":infrastructure:database-migrations")?.name = "database-migrations"
