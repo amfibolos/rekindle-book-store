@@ -32,7 +32,7 @@ services:
     ports:
       - "8761:8761"
     healthcheck:
-      test: "curl --fail --silent 165.232.113.133:8761/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8761/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -59,7 +59,7 @@ services:
       - EUREKA_HOST=eurekaserver-container
       - AUTH_HOST=authorizationserver-container
     healthcheck:
-      test: "curl --fail --silent 165.232.113.133:8021/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8021/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -78,7 +78,7 @@ services:
     ports:
       - "8023:8023"
     healthcheck:
-      test: "curl --fail --silent 165.232.113.133:8023/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8023/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -102,7 +102,7 @@ services:
     ports:
       - "8183:8183"
     healthcheck:
-      test: "curl --fail --silent 165.232.113.133:8183/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8183/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -132,7 +132,7 @@ services:
     ports:
       - "8181:8181"
     healthcheck:
-      test: "curl --fail --silent 165.232.113.133:8181/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8181/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -162,7 +162,7 @@ services:
     ports:
       - "8182:8182"
     healthcheck:
-      test: "curl --fail --silent 165.232.113.133:8182/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8182/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
@@ -192,7 +192,7 @@ services:
     ports:
       - "8184:8184"
     healthcheck:
-      test: "curl --fail --silent 165.232.113.133:8184/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:8184/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 10
