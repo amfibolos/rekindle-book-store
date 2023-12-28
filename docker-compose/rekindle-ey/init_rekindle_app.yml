@@ -3,6 +3,7 @@ networks:
     driver: bridge
 services:
   postgres:
+    user: "${UID}:${GID}"
     image: postgres:latest
     container_name: postgresqldb-container
     restart: always
@@ -25,6 +26,7 @@ services:
         aliases:
           - "postgresqldb-container"
   eureka-server:
+    user: "${UID}:${GID}"
     image: "eureka-server"
     container_name: eurekaserver-container
     ports:
@@ -47,6 +49,7 @@ services:
         aliases:
           - "eurekaserver-container"
   config-server:
+    user: "${UID}:${GID}"
     image: "config-server"
     container_name: configserver-container
     ports:
@@ -69,6 +72,7 @@ services:
         aliases:
           - "configserver-container"
   auth-server:
+    user: "${UID}:${GID}"
     image: "authorization-server"
     container_name: authorizationserver-container
     ports:
@@ -92,6 +96,7 @@ services:
         aliases:
           - "authorizationserver-container"
   bookstore-service:
+    user: "${UID}:${GID}"
     image: "bookstore-microservice"
     container_name: bookstoreservice-container
     ports:
@@ -121,6 +126,7 @@ services:
         aliases:
           - "bookstoreservice-container"
   order-service:
+    user: "${UID}:${GID}"
     image: "order-microservice"
     container_name: orderservice-container
     ports:
@@ -150,6 +156,7 @@ services:
         aliases:
           - "orderservice-container"
   payment-service:
+    user: "${UID}:${GID}"
     image: "payment-microservice"
     container_name: paymentservice-container
     ports:
@@ -179,6 +186,7 @@ services:
         aliases:
           - "paymentservice-container"
   customer-service:
+    user: "${UID}:${GID}"
     image: "customer-microservice"
     container_name: customerservice-container
     ports:
@@ -203,6 +211,7 @@ services:
         aliases:
           - "customerservice-container"
   gateway-server:
+    user: "${UID}:${GID}"
     image: "gateway-server"
     container_name: gatewayserver-container
     ports:

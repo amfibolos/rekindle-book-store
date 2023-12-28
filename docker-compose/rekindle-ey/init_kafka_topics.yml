@@ -3,6 +3,7 @@ networks:
     driver: bridge
 services:
   init-kafka-topics:
+    user: "${UID}:${GID}"
     image: confluentinc/cp-kafka:latest
     container_name: init-kafka-topics
     entrypoint: [ '/bin/sh', '-c' ]

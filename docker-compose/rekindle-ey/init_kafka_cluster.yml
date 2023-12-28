@@ -3,6 +3,7 @@ networks:
     driver: bridge
 services:
   zookeeper:
+    user: "${UID}:${GID}"
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
     ports:
@@ -28,6 +29,7 @@ services:
         aliases:
           - "zookeeper"
   kafka-broker-1:
+    user: "${UID}:${GID}"
     image: confluentinc/cp-kafka:latest
     container_name: kafka-broker-1
     ports:
@@ -55,6 +57,7 @@ services:
         aliases:
           - "kafka-broker-1"
   kafka-broker-2:
+    user: "${UID}:${GID}"
     image: confluentinc/cp-kafka:latest
     container_name: kafka-broker-2
     ports:
@@ -84,6 +87,7 @@ services:
         aliases:
           - "kafka-broker-2"
   kafka-broker-3:
+    user: "${UID}:${GID}"
     image: confluentinc/cp-kafka:latest
     container_name: kafka-broker-3
     ports:
@@ -113,6 +117,7 @@ services:
         aliases:
           - "kafka-broker-3"
   schema-registry:
+    user: "${UID}:${GID}"
     image: confluentinc/cp-schema-registry:latest
     container_name: schema-registry
     depends_on:
@@ -140,6 +145,7 @@ services:
         aliases:
           - "schema-registry"
   kafka-manager:
+    user: "${UID}:${GID}"
     image: hlebalbau/kafka-manager:stable
     container_name: kafka-manager
     restart: always

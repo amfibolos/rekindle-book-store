@@ -1,0 +1,16 @@
+networks:
+  rekindle-bookstore-network:
+    driver: bridge
+services:
+  bookstore-ui:
+    user: "${UID}:${GID}"
+    image: "bookstore-ui"
+    container_name: bookstore-ui-container
+    volumes:
+      - "./volumes/ui:/app/src"
+    ports:
+      - "80:80"
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "bookstore-ui-container"
