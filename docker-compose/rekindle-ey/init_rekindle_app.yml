@@ -1,0 +1,235 @@
+networks:
+  rekindle-bookstore-network:
+    driver: bridge
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgresqldb-container
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 30s
+      start_period: 5s
+      retries: 3
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./volumes/postgre:/var/lib/postgresql/data"
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "postgresqldb-container"
+  eureka-server:
+    image: "eureka-server"
+    container_name: eurekaserver-container
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: "curl --fail --silent 165.232.113.133:8761/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "eurekaserver-container"
+  config-server:
+    image: "config-server"
+    container_name: configserver-container
+    ports:
+      - "8021:8021"
+    environment:
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    healthcheck:
+      test: "curl --fail --silent 165.232.113.133:8021/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    depends_on:
+      eureka-server:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "configserver-container"
+  auth-server:
+    image: "authorization-server"
+    container_name: authorizationserver-container
+    ports:
+      - "8023:8023"
+    healthcheck:
+      test: "curl --fail --silent 165.232.113.133:8023/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - SPRING_PROFILES_ACTIVE=eureka
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      config-server:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "authorizationserver-container"
+  bookstore-service:
+    image: "bookstore-microservice"
+    container_name: bookstoreservice-container
+    ports:
+      - "8183:8183"
+    healthcheck:
+      test: "curl --fail --silent 165.232.113.133:8183/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - BROKER_PORT=9092
+      - SCHEMA_HOST=schema-registry
+      - FIRST_BROKER_HOST=kafka-broker-1
+      - SECOND_BROKER_HOST=kafka-broker-2
+      - THIRD_BROKER_HOST=kafka-broker-3
+      - SPRING_PROFILES_ACTIVE=postgre,kafka,eureka
+      - POSTGRES_HOST=postgresqldb-container
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      config-server:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "bookstoreservice-container"
+  order-service:
+    image: "order-microservice"
+    container_name: orderservice-container
+    ports:
+      - "8181:8181"
+    healthcheck:
+      test: "curl --fail --silent 165.232.113.133:8181/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - BROKER_PORT=9092
+      - SCHEMA_HOST=schema-registry
+      - FIRST_BROKER_HOST=kafka-broker-1
+      - SECOND_BROKER_HOST=kafka-broker-2
+      - THIRD_BROKER_HOST=kafka-broker-3
+      - SPRING_PROFILES_ACTIVE=postgre,kafka,eureka
+      - POSTGRES_HOST=postgresqldb-container
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      config-server:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "orderservice-container"
+  payment-service:
+    image: "payment-microservice"
+    container_name: paymentservice-container
+    ports:
+      - "8182:8182"
+    healthcheck:
+      test: "curl --fail --silent 165.232.113.133:8182/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - BROKER_PORT=9092
+      - SCHEMA_HOST=schema-registry
+      - FIRST_BROKER_HOST=kafka-broker-1
+      - SECOND_BROKER_HOST=kafka-broker-2
+      - THIRD_BROKER_HOST=kafka-broker-3
+      - SPRING_PROFILES_ACTIVE=postgre,kafka,eureka
+      - POSTGRES_HOST=postgresqldb-container
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      config-server:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "paymentservice-container"
+  customer-service:
+    image: "customer-microservice"
+    container_name: customerservice-container
+    ports:
+      - "8184:8184"
+    healthcheck:
+      test: "curl --fail --silent 165.232.113.133:8184/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - SPRING_PROFILES_ACTIVE=postgre,eureka
+      - POSTGRES_HOST=postgresqldb-container
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      config-server:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "customerservice-container"
+  gateway-server:
+    image: "gateway-server"
+    container_name: gatewayserver-container
+    ports:
+      - "8024:8024"
+    healthcheck:
+      test: "curl --fail --silent localhost:8024/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    environment:
+      - SPRING_PROFILES_ACTIVE=eureka
+      - CONFIG_HOST=configserver-container
+      - EUREKA_HOST=eurekaserver-container
+      - AUTH_HOST=authorizationserver-container
+    depends_on:
+      config-server:
+        condition: service_healthy
+      bookstore-service:
+        condition: service_healthy
+      order-service:
+        condition: service_healthy
+      payment-service:
+        condition: service_healthy
+      customer-service:
+        condition: service_healthy
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "gatewayserver-container"
