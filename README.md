@@ -133,7 +133,7 @@ variable
 * <span style="color:orange;">To connect to the PostgreSQL Database please install the latest
   version
 
-> <li>connection url: jdbc:postgresql://localhost:5432/postgres</li>
+><li>connection url: jdbc:postgresql://localhost:5432/postgres</li>
 ><li>username: postgres</li>
 ><li>password: admin</li>
 ><li>schemas: bookstore,customer,order,payment</li>
@@ -152,7 +152,7 @@ variable
 * <span style="color:orange;">the server is secured with JWT Oauth2 protocol
 * <span style="color:orange;">available services in the network are:
 
-> <li>http://localhost:8024/rekindle/orders</li>
+><li>http://localhost:8024/rekindle/orders</li>
 ><li>http://localhost:8024/rekindle/payments</li>
 ><li>http://localhost:8024/rekindle/bookstores</li>
 ><li>http://localhost:8024/rekindle/customers</li>
@@ -161,7 +161,7 @@ variable
 
 * <span style="color:orange;">Rekindle Network uses Oauth2 JTW authorization
 
-> <li>http://localhost:8023/oauth2/token [authorization server]</li>
+><li>http://localhost:8023/oauth2/token [authorization server]</li>
 ><li>client id: internal-ms</li>
 ><li>client secret: Nr4lsn5o</li>
 ><li>scopes: communicate.read communicate.write</li>
@@ -173,7 +173,7 @@ variable
 * <span style="color:orange;">Kafka, zookeeper and postgres are mapped to folders inside the project
   for simplicity
 
-> <li>./docker-compose/rekindle-local/docker-compose/volumes/kafka/*</li>
+><li>./docker-compose/rekindle-local/docker-compose/volumes/kafka/*</li>
 ><li>./docker-compose/rekindle-local/volumes/zookeeper/data/*</li>
 ><li>./docker-compose/rekindle-local/volumes/zookeeper/transactions/*</li>
 ><li>./docker-compose/rekindle-local/volumes/postgre/*</li>
