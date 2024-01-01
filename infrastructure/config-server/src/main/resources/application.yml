@@ -24,6 +24,11 @@ management:
     health:
       probes:
         enabled: true
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
 eureka:
   instance:
     preferIpAddress: true

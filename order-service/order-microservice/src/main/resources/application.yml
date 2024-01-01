@@ -22,3 +22,8 @@ management:
     health:
       probes:
         enabled: true
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true

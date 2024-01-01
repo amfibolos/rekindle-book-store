@@ -21,7 +21,7 @@ dependencyManagement {
     }
 }
 application {
-    mainClass.set("com.rekindle.book.store.order.microservice.OrderServiceApplication")
+    mainClass.set("com.rekindle.book.store.customer.microservice.CustomerServiceApplication")
 }
 jib {
     from.image = "amazoncorretto:21.0.1"

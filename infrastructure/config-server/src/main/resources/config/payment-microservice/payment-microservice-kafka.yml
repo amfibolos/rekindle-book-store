@@ -3,7 +3,7 @@ payment-service-topics:
   payment-response-topic-name: payment-response
 
 kafka-config:
-  bootstrap-servers: ${FIRST_BROKER_HOST:localhost}:${BROKER_PORT:19092}, ${SECOND_BROKER_HOST:localhost}:${BROKER_PORT:29092}, ${THIRD_BROKER_HOST:localhost}:${BROKER_PORT:39092}
+  bootstrap-servers: ${FIRST_BROKER_HOST:localhost}:${BROKER_PORT:9092}
   schema-registry-url-key: schema.registry.url
   schema-registry-url: http://${SCHEMA_HOST:localhost}:${SCHEMA_PORT:8081}
   num-of-partitions: 3

@@ -19,7 +19,7 @@ dependencyManagement {
     }
 }
 application {
-    mainClass.set("com.rekindle.book.store.server.eureka.EurekaServerApplication")
+    mainClass.set("com.rekindle.book.store.server.auth.AuthServerApplication")
 }
 jib {
     from.image = "amazoncorretto:21.0.1"
