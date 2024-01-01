@@ -108,7 +108,7 @@ services:
       - FIRST_BROKER_HOST=kafka-broker-1
       - SECOND_BROKER_HOST=kafka-broker-2
       - THIRD_BROKER_HOST=kafka-broker-3
-      - SPRING_PROFILES_ACTIVE=postgre,kafka,eureka
+      - SPRING_PROFILES_ACTIVE=postgre,kafka-docker,eureka
       - POSTGRES_HOST=postgresqldb-container
       - CONFIG_HOST=configserver-container
       - EUREKA_HOST=eurekaserver-container
@@ -137,7 +137,7 @@ services:
       - FIRST_BROKER_HOST=kafka-broker-1
       - SECOND_BROKER_HOST=kafka-broker-2
       - THIRD_BROKER_HOST=kafka-broker-3
-      - SPRING_PROFILES_ACTIVE=postgre,kafka,eureka
+      - SPRING_PROFILES_ACTIVE=postgre,kafka-docker,eureka
       - POSTGRES_HOST=postgresqldb-container
       - CONFIG_HOST=configserver-container
       - EUREKA_HOST=eurekaserver-container
@@ -166,7 +166,7 @@ services:
       - FIRST_BROKER_HOST=kafka-broker-1
       - SECOND_BROKER_HOST=kafka-broker-2
       - THIRD_BROKER_HOST=kafka-broker-3
-      - SPRING_PROFILES_ACTIVE=postgre,kafka,eureka
+      - SPRING_PROFILES_ACTIVE=postgre,kafka-docker,eureka
       - POSTGRES_HOST=postgresqldb-container
       - CONFIG_HOST=configserver-container
       - EUREKA_HOST=eurekaserver-container

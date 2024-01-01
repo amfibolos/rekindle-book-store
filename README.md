@@ -3,7 +3,7 @@
 ## <p align="center"> <span style="color:red;">Straight from the eighties with a synthwave vibe
 
 <p align="center">
-  <img width="460" src="content/miami.png"  alt="AKHQ for Kafka logo" /><br /><br />
+  <img width="460" src="content/miami.png" /><br /><br />
 </p>
 
 > <p align="center"> <span style="color:orange;"> Welcome to the store which will reignite the flame of affection to your old school books and
@@ -68,17 +68,75 @@ variable
 
 ### <span style="color:magenta;"> THAT'S IT. You're good to go :)
 
-# <span style="color:coral;"> For Manual Installation
+# <span style="color:coral;"> For WINDOWS Manual Installation
 
 ### <span style="color:coral;">1. Database
 
-* Download and install PostgreSQL version 16.1
+* Download and install [PostgreSQL version 16.1](https://sbp.enterprisedb.com/getfile.jsp?fileid=1258792)
 * Create database called **_postgres_** with username **_postgres_** and password **_admin_**
 * listening on port **_5432_**
 * Then go to **_infrastructure/database-migrations_** directory from repository root
   and run the following command
 
 > <li>gradle flywayMigrate</li>
+
+### <span style="color:coral;">2. Kafka
+* Download and install [conduktor](https://releases.conduktor.io/win-msi) application
+* Create free account and log in
+
+<p align="center">
+  <img width="400" src="content/conduktor_0.png">
+</p>
+
+* Click on "Start local Kafka cluster"
+<p align="center">
+  <img width="400" src="content/conduktor_1.png">
+</p>
+
+* Name the cluster however you want. Download cluster version 3.1.0 then check and download Schema Registry
+* Finally, start the cluster
+<p align="center">
+  <img width="400" src="content/conduktor_2.png">
+</p>
+
+* Go to tab "Topics" and click "Create"
+<p align="center">
+  <img width="500" src="content/conduktor_3.png">
+</p>
+
+* Create 4 topics each with 3 partitions and 1 replication factor
+```
+payment-request
+payment-response
+bookstore-approval-request
+bookstore-approval-response
+```
+<p align="center">
+  <img width="500" src="content/conduktor_4.png">
+</p>
+
+<p align="center">
+  <img width="500" src="content/conduktor_5.png">
+</p>
+
+### <span style="color:coral;">3. Services start up & termination
+* From root project directory execute:
+```
+via CMD
+services-start.bat
+
+via git bash or other terminal
+./services-start.sh
+```
+* Should you want to terminate all services, execute:
+```
+via CMD
+services-stop.bat
+
+via git bash or other terminal
+./services-stop.sh
+```
+### <span style="color:coral;"> THAT'S IT. You're good to go :)
 
 ## <span style="color:gold;"> Documentation
 

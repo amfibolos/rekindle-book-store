@@ -1,15 +1,13 @@
-order-service-topics:
+payment-service-topics:
   payment-request-topic-name: payment-request
   payment-response-topic-name: payment-response
-  bookstore-approval-request-topic-name: bookstore-approval-request
-  bookstore-approval-response-topic-name: bookstore-approval-response
 
 kafka-config:
-  bootstrap-servers: ${FIRST_BROKER_HOST:localhost}:${BROKER_PORT:9092}
+  bootstrap-servers: ${FIRST_BROKER_HOST:localhost}:${BROKER_PORT:19092}, ${SECOND_BROKER_HOST:localhost}:${BROKER_PORT:29092}, ${THIRD_BROKER_HOST:localhost}:${BROKER_PORT:39092}
   schema-registry-url-key: schema.registry.url
   schema-registry-url: http://${SCHEMA_HOST:localhost}:${SCHEMA_PORT:8081}
   num-of-partitions: 3
-  replication-factor: 1
+  replication-factor: 3
 
 kafka-producer-config:
   key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
@@ -26,7 +24,6 @@ kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
   payment-consumer-group-id: payment-topic-consumer # group id ensures the consumer will read from the last read item instead of the beginning (matches offset with group id)
-  bookstore-approval-consumer-group-id: bookstore-approval-topic-consumer # group id ensures the consumer will read from the last read item instead of the beginning (matches offset with group id)
   auto-offset-reset: earliest # if no offset remains. Kafka will read from the beginning
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
