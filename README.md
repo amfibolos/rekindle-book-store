@@ -30,41 +30,53 @@ variable
 
 ## <span style="color:magenta;"> For Docker Users
 
+### <span style="color:magenta;"> 1. Source Code build and docker images setup
 * <span style="color:cyan;">In the root project directory execute the following commands using
-  either gradle or ./gradlew
+either gradle or ./gradlew
 * <span style="color:cyan;">These will build source code and prepare docker images
 
-### <span style="color:magenta;"> 1. Source Code build and docker images setup
 
-> <li>gradle clean build</li>
+><li>gradle clean build</li>
 ><li>gradle jibDockerBuild</li>
 
 ### <span style="color:magenta;"> 2. Infrastructure and ecosystem setup
 
-* <span style="color:cyan;">Then go to ./docker-compose/rekindle-local directory
+#### <span style="color:magenta;"> Kafka
+
+* <span style="color:cyan;">Go to docker-compose/rekindle-local directory
 * <span style="color:cyan;">and execute the following commands
 
-> <li>cd docker-compose/rekindle-local</li>
+><li>cd docker-compose/rekindle-local</li>
 ><li>docker-compose -f init_kafka_cluster.yml up -d</li>
 
 * <span style="color:cyan;">wait till all services have started
 
-> <li>docker-compose -f init_kafka_topics.yml up</li>
+><li>docker-compose -f init_kafka_topics.yml up</li>
 
 * <span style="color:cyan;">this will add necessary kafka topics to the boostrap servers. Can be
   deleted afterwards
 
-> <li>docker-compose -f init_rekindle_app.yml up -d</li>
+#### <span style="color:magenta;"> Database & data migration
+><li>docker-compose -f init_rekindle_database.yml up -d --wait</li>
+* <span style="color:cyan;">this will start PostgreSQL database
+* <span style="color:cyan;">then from root project directory execute
+
+><li>gradle flywayMigrate or ./gradlew flywayMigrate -p infrastructure/database-migrations/</li>
+
+#### <span style="color:magenta;"> Microservices
+* <span style="color:cyan;">Go to docker-compose/rekindle-local directory
+
+><li>docker-compose -f init_rekindle_app.yml up -d</li>
 
 * <span style="color:cyan;">this will start all microservices in sequence where some require kafka
+  and the database
 
-### <span style="color:magenta;"> 3. Database data migration
+* <span style="color:cyan;">later you can just use 
 
-* <span style="color:cyan;">Then go to infrastructure/database-migrations directory from repository
-  root
-  and run the following command
-
-> <li>gradle flywayMigrate</li>
+><li>docker-compose -f init_kafka_cluster.yml stop</li>
+><li>docker-compose -f init_kafka_cluster.yml start</li>
+><li>docker-compose -f init_rekindle_app.yml stop</li>
+><li>docker-compose -f init_rekindle_app.yml start</li>
 
 ### <span style="color:magenta;"> THAT'S IT. You're good to go :)
 

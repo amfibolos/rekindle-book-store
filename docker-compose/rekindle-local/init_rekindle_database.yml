@@ -1,0 +1,26 @@
+networks:
+  rekindle-bookstore-network:
+    driver: bridge
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgresqldb-container
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 30s
+      start_period: 5s
+      retries: 3
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./volumes/postgre:/var/lib/postgresql/data"
+    networks:
+      rekindle-bookstore-network:
+        aliases:
+          - "postgresqldb-container"

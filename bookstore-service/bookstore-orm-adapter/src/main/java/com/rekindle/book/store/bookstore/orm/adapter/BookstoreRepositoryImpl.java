@@ -4,6 +4,7 @@ package com.rekindle.book.store.bookstore.orm.adapter;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreCreateCommand;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreProductCreateCommand;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreProductDto;
+import com.rekindle.book.store.bookstore.application.service.domain.dto.ProductDto;
 import com.rekindle.book.store.bookstore.application.service.domain.ports.output.repository.BookstoreRepository;
 import com.rekindle.book.store.bookstore.orm.entity.BookstoreEntity;
 import com.rekindle.book.store.bookstore.orm.entity.BookstoreIdentityEntity;
@@ -98,5 +99,15 @@ public class BookstoreRepositoryImpl implements BookstoreRepository {
             .map(BookstoreIdentityEntity::getId).collect(
                 Collectors.toList()))
         .build();
+  }
+
+  @Override
+  public void updateProductById(UUID productId, ProductDto productDto) {
+    ProductEntity productEntity = productRepository.findById(productId)
+        .orElseThrow(() -> new ProductEntityNotFoundException("Product not found!"));
+    productEntity.setName(productDto.name());
+    productEntity.setPrice(productDto.price());
+    productEntity.setAvailable(productDto.available());
+    productRepository.save(productEntity);
   }
 }

@@ -3,6 +3,7 @@ package com.rekindle.book.store.bookstore.rest.controller;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreCreateCommand;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreProductCreateCommand;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreProductDto;
+import com.rekindle.book.store.bookstore.application.service.domain.dto.ProductDto;
 import com.rekindle.book.store.bookstore.application.service.domain.ports.output.repository.BookstoreRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,5 +65,17 @@ public class BookstoreController {
     BookstoreProductDto product = bookstoreRepository.getProductById(productId);
     log.info("Product {} with id {} has been found.", product.name(), productId);
     return ResponseEntity.ok(product);
+  }
+
+  @Operation(
+      summary = "Update Product information",
+      description = "REST API PUT method to update single product")
+  @PutMapping("/product/{productId}")
+  public ResponseEntity<Void> updateProductById(
+      @PathVariable("productId") UUID productId, @RequestBody ProductDto productDto
+  ) {
+    bookstoreRepository.updateProductById(productId, productDto);
+    log.info("Product with id {} has been updated.", productId);
+    return ResponseEntity.noContent().build();
   }
 }

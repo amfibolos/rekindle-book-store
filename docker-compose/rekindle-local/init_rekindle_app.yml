@@ -2,28 +2,6 @@ networks:
   rekindle-bookstore-network:
     driver: bridge
 services:
-  postgres:
-    image: postgres:latest
-    container_name: postgresqldb-container
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: admin
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 30s
-      timeout: 30s
-      start_period: 5s
-      retries: 3
-    ports:
-      - "5432:5432"
-    volumes:
-      - "./volumes/postgre:/var/lib/postgresql/data"
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "postgresqldb-container"
   eureka-server:
     image: "eureka-server"
     container_name: eurekaserver-container
@@ -39,9 +17,6 @@ services:
       - CONFIG_HOST=configserver-container
       - EUREKA_HOST=eurekaserver-container
       - AUTH_HOST=authorizationserver-container
-    depends_on:
-      postgres:
-        condition: service_healthy
     networks:
       rekindle-bookstore-network:
         aliases:
@@ -73,12 +48,6 @@ services:
     container_name: authorizationserver-container
     ports:
       - "8023:8023"
-    healthcheck:
-      test: "curl --fail --silent localhost:8023/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
     environment:
       - SPRING_PROFILES_ACTIVE=eureka
       - CONFIG_HOST=configserver-container
@@ -207,12 +176,6 @@ services:
     container_name: gatewayserver-container
     ports:
       - "8024:8024"
-    healthcheck:
-      test: "curl --fail --silent localhost:8024/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
     environment:
       - SPRING_PROFILES_ACTIVE=eureka
       - CONFIG_HOST=configserver-container
