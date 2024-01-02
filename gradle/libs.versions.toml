@@ -12,6 +12,7 @@ org-springdoc-springdoc-openapi-starter-common = "2.2.0"
 org-springdoc-springdoc-openapi-starter-webmvc-ui = "2.2.0"
 jib-version = "3.4.0"
 spring-cloud-version = "2023.0.0"
+springdoc-webflux-version = "1.7.0"
 
 [libraries]
 org-apache-avro = { module = "org.apache.avro:avro", version.ref = "apache-avro" }
@@ -21,6 +22,8 @@ io-confluent-kafka-avro-serializer = { module = "io.confluent:kafka-avro-seriali
 org-springframework-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "spring-boot-kafka-core" }
 org-springdoc-springdoc-openapi-starter-common = { module = "org.springdoc:springdoc-openapi-starter-common", version.ref = "org-springdoc-springdoc-openapi-starter-common" }
 org-springdoc-springdoc-openapi-starter-webmvc-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "org-springdoc-springdoc-openapi-starter-webmvc-ui" }
+springdoc-openapi-webflux-core = {module = "org.springdoc:springdoc-openapi-webflux-core", version.ref = "springdoc-webflux-version"}
+springdoc-openapi-webflux-ui = {module = "org.springdoc:springdoc-openapi-webflux-ui", version.ref = "springdoc-webflux-version"}
 
 [plugins]
 spring-boot-plugin = { id = "org.springframework.boot", version.ref = "spring-boot-version" }
