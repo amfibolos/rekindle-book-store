@@ -107,8 +107,8 @@ healthCheck 8181 "Order"
 healthCheck 8182 "Payment"
 healthCheck 8183 "Bookstore"
 healthCheck 8184 "Customer"
-#healthCheck 8023 "Authorization"
-#healthCheck 8024 "Gateway"
+healthCheck 8024 "Gateway"
+healthCheck 8023 "Authorization"
 
 echo "All Rekindle Bookstore services are up"
 exit 0

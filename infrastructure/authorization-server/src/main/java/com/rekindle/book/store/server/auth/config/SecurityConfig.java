@@ -9,6 +9,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Component;
@@ -59,6 +61,8 @@ public class SecurityConfig {
         .scope(OidcScopes.PROFILE)
         .scope("communicate.read")
         .scope("communicate.write")
+        .tokenSettings(
+            TokenSettings.builder().accessTokenTimeToLive(Duration.ofMinutes(30)).build())
         //.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
         .build();
 
@@ -104,9 +108,10 @@ public class SecurityConfig {
   public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
       throws Exception {
     http
-        .authorizeHttpRequests((authorize) -> authorize
-            .anyRequest().authenticated()
-        )
+        .authorizeHttpRequests((authorize) -> {
+          authorize.requestMatchers("/actuator/**").permitAll();
+          authorize.anyRequest().authenticated();
+        })
         // Form login handles the redirect to the login page from the
         // authorization server filter chain
         .formLogin(Customizer.withDefaults());
@@ -169,16 +174,6 @@ public class SecurityConfig {
     return AuthorizationServerSettings.builder()
         .issuer("http://" + host + ":" + port)
         .build();
-  }
-
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers("/v3/api-docs/**",
-        "/swagger-ui/**",
-        "/v2/api-docs/**",
-        "/swagger-resources/**",
-        "/h2-console/**"
-    );
   }
 
 }

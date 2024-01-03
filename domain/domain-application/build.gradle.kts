@@ -17,4 +17,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    api("org.springframework.boot:spring-boot-starter-web")
 }

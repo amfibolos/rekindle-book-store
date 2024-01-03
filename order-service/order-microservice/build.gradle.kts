@@ -14,6 +14,7 @@ dependencies {
     implementation("org.springframework.data:spring-data-jpa")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 }
 extra["springCloudVersion"] = "2023.0.0"
 dependencyManagement {

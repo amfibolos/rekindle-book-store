@@ -12,7 +12,7 @@ the<DependencyManagementExtension>().apply {
 }
 dependencies {
     implementation(project(":domain:domain-bookstore"))
-    implementation(project(":domain:domain-application"))
+    api(project(":domain:domain-application"))
     implementation(project(":bookstore-service:bookstore-application-service"))
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-logging")

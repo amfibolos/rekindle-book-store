@@ -82,17 +82,22 @@ either gradle or ./gradlew
 
 # <span style="color:coral;"> For WINDOWS Manual Installation
 
-### <span style="color:coral;">1. Database
+### <span style="color:coral;">1. Source Code Build
+* <span style="color:cyan;">In the root project directory execute the following command using
+  either gradle or ./gradlew
+
+><li>gradle clean build</li>
+
+### <span style="color:coral;">2. Database
 
 * Download and install [PostgreSQL version 16.1](https://sbp.enterprisedb.com/getfile.jsp?fileid=1258792)
 * Create database called **_postgres_** with username **_postgres_** and password **_admin_**
 * listening on port **_5432_**
-* Then go to **_infrastructure/database-migrations_** directory from repository root
-  and run the following command
+* Then from **_root project directory_** run the following command
 
-> <li>gradle flywayMigrate</li>
+> <li>gradle flywayMigrate -p infrastructure/database-migrations/</li>
 
-### <span style="color:coral;">2. Kafka
+### <span style="color:coral;">3. Kafka
 * Download and install [conduktor](https://releases.conduktor.io/win-msi) application
 * Create free account and log in
 
@@ -131,7 +136,7 @@ bookstore-approval-response
   <img width="500" src="content/conduktor_5.png">
 </p>
 
-### <span style="color:coral;">3. Services start up & termination
+### <span style="color:coral;">4. Services start up & termination
 * From root project directory execute:
 ```
 via CMD
@@ -255,9 +260,6 @@ via git bash or other terminal
 # <span style="color:cyan;">STILL UNDER CONSTRUCTION
 
 ### Additional Security
-
-* All microservices need to be secured so that the only entry point will be the gateway
-* but firstly Kafka cluster has to be integrated with Authorization server
 
 * User interface will be created as a Single Page Application with React, NodeJs and Typescript
 

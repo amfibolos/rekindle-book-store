@@ -60,11 +60,11 @@ start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka -jar "%
 @rem Starting Authorization Server
 start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka -jar "%AUTH_SERVER_DIR%"
 
-@rem Starting Bookstore Service
-start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%BOOK_SERVER_DIR%"
-
 @rem Starting Customer Service
 start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%CUSTOMER_SERVER_DIR%"
+
+@rem Starting Bookstore Service
+start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%BOOK_SERVER_DIR%"
 
 @rem Starting Order Server
 start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%ORDER_SERVER_DIR%"
