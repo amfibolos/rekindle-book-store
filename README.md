@@ -31,6 +31,9 @@ as its build tool
 * <span style="color:lime;">Create GRADLE_HOME system variable and add it to your PATH
 * <span style="color:lime;">Alternatively you can use Gradle wrapper which comes with the project
 
+## <span style="color:magenta;"> 3. Intellij Idea & Gradle
+* <span style="color:lime;">After importing the repository you may have to set JDK additionally for gradle
+  <img width="460" src="content/intellij.png">
 ## <span style="color:magenta;"> For Docker Users
 
 ### <span style="color:magenta;"> 1. Source Code build and docker images setup
