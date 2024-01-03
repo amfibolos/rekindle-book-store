@@ -243,7 +243,7 @@ via git bash or other terminal
 ><li>grant type: client credentials</li>
 ><li>header prefix: Bearer</li>
 
-### <span style="color:violet;"> Volume Mapping
+### <span style="color:violet;"> Docker Volume Mapping
 
 * <span style="color:orange;">Kafka, zookeeper and postgres are mapped to folders inside the project
   for simplicity
