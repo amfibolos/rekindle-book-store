@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+//TODO dirty workaround until more robust jwt verification is implemented on service-side
 public class AuthorizationPreFilter implements Filter {
 
   @Override
@@ -22,7 +23,7 @@ public class AuthorizationPreFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
-    if (!httpRequest.getServletPath().startsWith("/actuator")) {
+    if (!isPathAllowed(httpRequest.getServletPath())) {
       List<String> list = Collections.list(httpRequest.getHeaderNames());
       if (!list.contains("authorization")) {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -34,6 +35,11 @@ public class AuthorizationPreFilter implements Filter {
     } else {
       chain.doFilter(request, response);
     }
+  }
+
+  private boolean isPathAllowed(String path) {
+    return path.startsWith("/actuator") || path.startsWith("/v3/api-docs") || path.startsWith(
+        "/v2/api-docs") || path.startsWith("/swagger-ui") || path.startsWith("/swagger-resources");
   }
 
   @Override
