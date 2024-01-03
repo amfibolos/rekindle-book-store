@@ -240,7 +240,7 @@ via git bash or other terminal
 ><li>client id: internal-ms</li>
 ><li>client secret: Nr4lsn5o</li>
 ><li>scopes: communicate.read communicate.write</li>
-><li>rant type: client credentials</li>
+><li>grant type: client credentials</li>
 ><li>header prefix: Bearer</li>
 
 ### <span style="color:violet;"> Volume Mapping
