@@ -255,7 +255,8 @@ via git bash or other terminal
 
 * <span style="color:orange;">In case of docker container removals, contents of these folders also
   have to be deleted
-* <span style="color:orange;">manually before creating the build anew
+  manually before creating the build anew. Alternatively there is a script which does all that
+><li>remove-volume-mapping.sh</li>
 
 # <span style="color:cyan;">STILL UNDER CONSTRUCTION
 
