@@ -76,8 +76,8 @@ call :healthCheck 8181 "Order"
 call :healthCheck 8182 "Payment"
 call :healthCheck 8183 "Bookstore"
 call :healthCheck 8184 "Customer"
-@rem call :healthCheck 8023 "Authorization"
-@rem call :healthCheck 8024 "Gateway"
+call :healthCheck 8023 "Authorization"
+call :healthCheck 8024 "Gateway"
 
 echo All Rekindle Bookstore services are up
 

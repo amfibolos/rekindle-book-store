@@ -18,7 +18,13 @@ kill_processes() {
             ;;
         CYGWIN* | MINGW32* | MINGW64* | MSYS*)
             # For Windows (Cygwin, Git Bash, MSYS, etc.)
-            wmic process where "(commandline like '%%$process_name%%' and not name='wmic.exe')" delete
+            pid=$(jps | grep "$process_name" | cut -d ' ' -f 1)
+            if [ -n "$pid" ]; then
+                echo "Killing processes with commandline containing '$process_name'"
+                taskkill //F //PID "$pid"
+            else
+                echo "No processes found with commandline containing '$process_name'"
+            fi
             ;;
         *)
             echo "Unsupported operating system: $OS"
@@ -26,19 +32,13 @@ kill_processes() {
     esac
 }
 
-# Usage of the kill_processes function
-kill_processes "eureka-server"
-
-kill_processes "config-server"
-
-kill_processes "authorization-server"
-
-kill_processes "gateway-server"
-
-kill_processes "customer-microservice"
-
-kill_processes "bookstore-microservice"
-
-kill_processes "order-microservice"
-
-kill_processes "payment-microservice"
+# kill_processes function
+kill_processes "eureka-server.jar"
+kill_processes "config-server.jar"
+kill_processes "authorization-server.jar"
+kill_processes "gateway-server.jar"
+kill_processes "customer-microservice.jar"
+kill_processes "bookstore-microservice.jar"
+kill_processes "order-microservice.jar"
+kill_processes "payment-microservice.jar"
+exit 0

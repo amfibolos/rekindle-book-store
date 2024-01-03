@@ -38,15 +38,15 @@ healthCheck() {
     done
 
     echo "Service is not UP after $retries attempts"
-    echo "Health check for $service service failed. Exiting script."
-    kill_processes "eureka-server"
-    kill_processes "config-server"
-    kill_processes "authorization-server"
-    kill_processes "gateway-server"
-    kill_processes "customer-microservice"
-    kill_processes "bookstore-microservice"
-    kill_processes "order-microservice"
-    kill_processes "payment-microservice"
+    echo "Health check for $service service failed. Exiting script & killing remaining processes"
+    kill_processes "eureka-server.jar"
+    kill_processes "config-server.jar"
+    kill_processes "authorization-server.jar"
+    kill_processes "gateway-server.jar"
+    kill_processes "customer-microservice.jar"
+    kill_processes "bookstore-microservice.jar"
+    kill_processes "order-microservice.jar"
+    kill_processes "payment-microservice.jar"
     exit 1
 }
 
@@ -67,7 +67,13 @@ kill_processes() {
             ;;
         CYGWIN* | MINGW32* | MINGW64* | MSYS*)
             # For Windows (Cygwin, Git Bash, MSYS, etc.)
-            wmic process where "(commandline like '%%$process_name%%' and not name='wmic.exe')" delete
+            pid=$(jps | grep "$process_name" | cut -d ' ' -f 1)
+            if [ -n "$pid" ]; then
+                echo "Killing processes with commandline containing '$process_name'"
+                taskkill //F //PID "$pid"
+            else
+                echo "No processes found with commandline containing '$process_name'"
+            fi
             ;;
         *)
             echo "Unsupported operating system: $OS"
@@ -91,11 +97,11 @@ nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka -jar "$GATEW
 # Starting Authorization Server
 nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka -jar "$AUTH_SERVER_DIR" > /dev/null 2>&1 &
 
-# Starting Bookstore Service
-nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka -jar "$BOOK_SERVER_DIR" > /dev/null 2>&1 &
-
 # Starting Customer Service
 nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre -jar "$CUSTOMER_SERVER_DIR" > /dev/null 2>&1 &
+
+# Starting Bookstore Service
+nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka -jar "$BOOK_SERVER_DIR" > /dev/null 2>&1 &
 
 # Starting Order Server
 nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka -jar "$ORDER_SERVER_DIR" > /dev/null 2>&1 &
