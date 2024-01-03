@@ -11,11 +11,11 @@
 
 ## <span style="color:green;"> Built With
 
-* [Java 21](https://github.com/corretto/corretto-21/releases)
-* [Gradle 8.5](https://gradle.org/install/)
+* [Java 21](https://www.oracle.com/java/technologies/)
+* [Gradle 8.5](https://gradle.org/)
 * [Spring Framework](https://spring.io/)
-* [Kafka](https://kafka.apache.org/downloads)
-* [PostgreSQL](https://www.postgresql.org/download/)
+* [Kafka](https://kafka.apache.org/)
+* [PostgreSQL](https://www.postgresql.org/)
 
 # <span style="color:yellow;"> Getting Started
 ## <span style="color:magenta;"> 1. Java
