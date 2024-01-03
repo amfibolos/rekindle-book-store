@@ -18,15 +18,18 @@
 * [PostgreSQL](https://www.postgresql.org/download/)
 
 # <span style="color:yellow;"> Getting Started
-
-<span style="color:lime;">You need to have **_Java 21_** installed and configured in your PATH
-variable
+## <span style="color:magenta;"> 1. Java
+<span style="color:lime;">You need to have [Java 21](https://corretto.aws/downloads/resources/21.0.1.12.1/amazon-corretto-21.0.1.12.1-windows-x64-jdk.zip) 
+installed and configured.
 
 * <span style="color:lime;">This project was build and tested on amazon **_coretto 21.0.1_**
+* <span style="color:lime;">Create JAVA_HOME system variable and add it to your PATH
 
-* <span style="color:lime;">The project uses Gradle is its build tool and comes with Gradle wrapper
-* <span style="color:lime;">but for those who wish to install gradle locally - the version is *
-  *_8.5_**
+## <span style="color:magenta;"> 2. Gradle
+* <span style="color:lime;">The project uses [Gradle 8.5](https://services.gradle.org/distributions/gradle-8.5-bin.zip) 
+as its build tool
+* <span style="color:lime;">Create GRADLE_HOME system variable and add it to your PATH
+* <span style="color:lime;">Alternatively you can use Gradle wrapper which comes with the project
 
 ## <span style="color:magenta;"> For Docker Users
 
