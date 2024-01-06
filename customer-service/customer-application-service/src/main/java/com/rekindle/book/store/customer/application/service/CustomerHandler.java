@@ -2,12 +2,14 @@ package com.rekindle.book.store.customer.application.service;
 
 
 import com.rekindle.book.store.customer.application.service.create.CreateCustomerCommand;
+import com.rekindle.book.store.customer.application.service.dto.CustomerDto;
 import com.rekindle.book.store.customer.application.service.mapper.CustomerDataMapper;
 import com.rekindle.book.store.customer.application.service.ports.output.repository.CustomerRepository;
 import com.rekindle.book.store.domain.customer.CustomerDomainService;
 import com.rekindle.book.store.domain.customer.entity.Customer;
 import com.rekindle.book.store.domain.customer.event.CustomerCreatedEvent;
 import com.rekindle.book.store.domain.customer.exception.CustomerDomainException;
+import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -48,7 +50,21 @@ class CustomerHandler {
     return customerCreatedEvent;
   }
 
-  public Customer fetchCustomerById(UUID customerId) {
+  public CustomerDto fetchCustomerById(UUID customerId) {
     return customerRepository.getCustomerById(customerId);
+  }
+
+  public List<CustomerDto> fetchAllCustomers() {
+    return customerRepository.fetchAllCustomers();
+  }
+
+  @Transactional
+  public void updateCustomerInformation(UUID customerId, CreateCustomerCommand createCommand) {
+    customerRepository.updateCustomerInformation(customerId,createCommand);
+  }
+
+  @Transactional
+  public void deleteCustomer(UUID customerId) {
+  customerRepository.deleteCustomer(customerId);
   }
 }

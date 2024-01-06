@@ -101,13 +101,13 @@ nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka -jar "$AUTH_
 nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre -jar "$CUSTOMER_SERVER_DIR" > /dev/null 2>&1 &
 
 # Starting Bookstore Service
-nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka -jar "$BOOK_SERVER_DIR" > /dev/null 2>&1 &
+nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka-docker -jar "$BOOK_SERVER_DIR" > /dev/null 2>&1 &
 
 # Starting Order Server
-nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka -jar "$ORDER_SERVER_DIR" > /dev/null 2>&1 &
+nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka-docker -jar "$ORDER_SERVER_DIR" > /dev/null 2>&1 &
 
 # Starting Payment Server
-nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka -jar "$PAYMENT_SERVER_DIR" > /dev/null 2>&1 &
+nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka-docker -jar "$PAYMENT_SERVER_DIR" > /dev/null 2>&1 &
 
 healthCheck 8181 "Order"
 healthCheck 8182 "Payment"
