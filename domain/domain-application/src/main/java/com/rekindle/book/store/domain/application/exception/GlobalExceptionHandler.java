@@ -87,7 +87,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   private String extractViolationsFromException(ConstraintViolationException validationException) {
     return validationException.getConstraintViolations()
         .stream()
-        .map(ConstraintViolation::getMessage)
+        .map(v -> v.getPropertyPath().toString() + " " + v.getMessage())
         .collect(Collectors.joining("--"));
   }
 

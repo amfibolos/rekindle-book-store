@@ -5,8 +5,8 @@ import com.rekindle.book.store.customer.application.service.create.CreateCustome
 import com.rekindle.book.store.customer.application.service.create.CreateCustomerResponse;
 import com.rekindle.book.store.customer.application.service.dto.CustomerDto;
 import com.rekindle.book.store.customer.application.service.ports.input.service.CustomerApplicationService;
-import com.rekindle.book.store.domain.customer.entity.Customer;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class CustomerController {
       description = "REST API POST method to create a new customer")
   @PostMapping
   public ResponseEntity<CreateCustomerResponse> createCustomer(
-      @RequestBody CreateCustomerCommand createCustomerCommand
+      @Valid @RequestBody CreateCustomerCommand createCustomerCommand
   ) {
     log.info("Creating customer with username: {}", createCustomerCommand.username());
     CreateCustomerResponse response = customerApplicationService.createCustomer(
@@ -74,7 +74,7 @@ public class CustomerController {
   @PutMapping("/{customerId}")
   public ResponseEntity<Void> updateCustomerInformation(
       @PathVariable("customerId") UUID customerId,
-      @RequestBody CreateCustomerCommand createCommand
+      @Valid @RequestBody CreateCustomerCommand createCommand
   ) {
     log.info("Updating customer with id: {}", customerId);
     customerApplicationService.updateCustomer(customerId, createCommand);

@@ -5,6 +5,7 @@ import com.rekindle.book.store.domain.core.valueobject.CustomerId;
 import com.rekindle.book.store.domain.core.valueobject.Money;
 import com.rekindle.book.store.domain.payment.entity.CreditHistory;
 import com.rekindle.book.store.domain.payment.valueobject.CreditHistoryId;
+import com.rekindle.book.store.payment.application.service.dto.CreditHistoryDto;
 import com.rekindle.book.store.payment.orm.credithistory.entity.CreditHistoryEntity;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,15 @@ public class CreditHistoryDataAccessMapper {
         .customerId(creditHistory.getCustomerId().getValue())
         .amount(creditHistory.getAmount().getAmount())
         .type(creditHistory.getTransactionType())
+        .build();
+  }
+
+  public CreditHistoryDto creditHistoryToDto(CreditHistory creditHistory){
+    return CreditHistoryDto.builder()
+        .creditId(creditHistory.getId().getValue())
+        .customerId(creditHistory.getCustomerId().getValue())
+        .totalPrice(creditHistory.getAmount().getAmount())
+        .transactionType(creditHistory.getTransactionType())
         .build();
   }
 

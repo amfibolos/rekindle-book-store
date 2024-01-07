@@ -7,6 +7,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -27,8 +29,12 @@ import lombok.Setter;
 public class BookstoreIdentityEntity {
 
   @Id
+  @NotNull
   private UUID id;
+  @NotBlank
+  @NotNull
   private String name;
+  @NotNull
   private Boolean active;
   @Builder.Default
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

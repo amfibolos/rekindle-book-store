@@ -2,9 +2,11 @@ package com.rekindle.book.store.bookstore.orm.adapter;
 
 
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreCreateCommand;
+import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreDto;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreProductCreateCommand;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.BookstoreProductDto;
 import com.rekindle.book.store.bookstore.application.service.domain.dto.ProductDto;
+import com.rekindle.book.store.bookstore.application.service.domain.exception.ProductNotFoundException;
 import com.rekindle.book.store.bookstore.application.service.domain.ports.output.repository.BookstoreRepository;
 import com.rekindle.book.store.bookstore.orm.entity.BookstoreEntity;
 import com.rekindle.book.store.bookstore.orm.entity.BookstoreIdentityEntity;
@@ -89,9 +91,10 @@ public class BookstoreRepositoryImpl implements BookstoreRepository {
   @Transactional
   public BookstoreProductDto getProductById(UUID productId) {
     ProductEntity productEntity = productRepository.findById(productId)
-        .orElseThrow(() -> new ProductEntityNotFoundException("Product not found!"));
+        .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
     return BookstoreProductDto
         .builder()
+        .id(productEntity.getId())
         .available(productEntity.getAvailable())
         .name(productEntity.getName())
         .price(productEntity.getPrice())
@@ -102,12 +105,82 @@ public class BookstoreRepositoryImpl implements BookstoreRepository {
   }
 
   @Override
+  @Transactional
   public void updateProductById(UUID productId, ProductDto productDto) {
     ProductEntity productEntity = productRepository.findById(productId)
-        .orElseThrow(() -> new ProductEntityNotFoundException("Product not found!"));
+        .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
     productEntity.setName(productDto.name());
     productEntity.setPrice(productDto.price());
     productEntity.setAvailable(productDto.available());
     productRepository.save(productEntity);
   }
+
+  @Override
+  @Transactional
+  public void deleteProductById(UUID bookstoreId, UUID productId) {
+    BookstoreIdentityEntity bookstoreEntity = bookstoreIdentityRepository
+        .findById(bookstoreId)
+        .orElseThrow(() -> new BookstoreNotFoundException("Bookstore not found"));
+    ProductEntity productEntity = productRepository.findById(productId)
+        .orElseThrow(() -> new ProductNotFoundException("Product not found!"));
+    bookstoreEntity.removeProductEntity(productEntity);
+    bookstoreIdentityRepository.save(bookstoreEntity);
+    productRepository.delete(productEntity);
+  }
+
+  @Override
+  public BookstoreDto fetchBookstore(UUID bookstoreId) {
+    return bookstoreIdentityRepository
+        .findById(bookstoreId)
+        .map(e -> new BookstoreDto(e.getId(), e.getName(), e.getActive()))
+        .orElseThrow(() -> new BookstoreNotFoundException("Bookstore not found"));
+  }
+
+  @Override
+  public List<BookstoreDto> fetchAllBookstore() {
+    return bookstoreIdentityRepository
+        .findAll()
+        .stream()
+        .map(e -> new BookstoreDto(e.getId(), e.getName(), e.getActive()))
+        .toList();
+  }
+
+  @Override
+  @Transactional
+  public void updateBookstoreById(UUID bookstoreId, BookstoreCreateCommand createCommand) {
+    BookstoreIdentityEntity bookstoreEntity = bookstoreIdentityRepository
+        .findById(bookstoreId)
+        .orElseThrow(() -> new BookstoreNotFoundException("Bookstore not found"));
+    bookstoreEntity.setName(createCommand.name());
+    bookstoreEntity.setActive(createCommand.isActive());
+    bookstoreIdentityRepository.save(bookstoreEntity);
+  }
+
+  @Override
+  @Transactional
+  public void deleteBookstoreById(UUID bookstoreId) {
+    BookstoreIdentityEntity bookstoreEntity = bookstoreIdentityRepository
+        .findById(bookstoreId)
+        .orElseThrow(() -> new BookstoreNotFoundException("Bookstore not found"));
+    bookstoreIdentityRepository.delete(bookstoreEntity);
+  }
+
+  @Override
+  @Transactional
+  public List<BookstoreProductDto> getAllProducts() {
+    return productRepository.findAll()
+        .stream()
+        .map(productEntity -> BookstoreProductDto
+            .builder()
+            .id(productEntity.getId())
+            .available(productEntity.getAvailable())
+            .name(productEntity.getName())
+            .price(productEntity.getPrice())
+            .bookstores(productEntity.getBookstoreIdentityEntities().stream()
+                .map(BookstoreIdentityEntity::getId).collect(
+                    Collectors.toList()))
+            .build())
+        .toList();
+  }
+
 }

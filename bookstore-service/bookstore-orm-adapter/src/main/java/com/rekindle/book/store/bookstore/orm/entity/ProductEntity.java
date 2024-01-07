@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
@@ -26,9 +28,14 @@ import lombok.Setter;
 public class ProductEntity {
 
   @Id
+  @NotNull
   private UUID id;
+  @NotBlank
+  @NotNull
   private String name;
+  @NotNull
   private BigDecimal price;
+  @NotNull
   private Boolean available;
   @Builder.Default
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "productEntities")

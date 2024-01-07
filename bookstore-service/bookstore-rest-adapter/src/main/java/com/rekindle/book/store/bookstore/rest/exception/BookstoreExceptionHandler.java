@@ -2,6 +2,7 @@ package com.rekindle.book.store.bookstore.rest.exception;
 
 
 import com.rekindle.book.store.bookstore.application.service.domain.exception.BookstoreApplicationServiceException;
+import com.rekindle.book.store.bookstore.application.service.domain.exception.ProductNotFoundException;
 import com.rekindle.book.store.domain.application.exception.ErrorDTO;
 import com.rekindle.book.store.domain.application.exception.GlobalExceptionHandler;
 import com.rekindle.book.store.domain.bookstore.exception.BookstoreDomainException;
@@ -49,6 +50,18 @@ public class BookstoreExceptionHandler extends GlobalExceptionHandler {
     log.error(serviceException.getMessage(), serviceException);
     return ErrorDTO.builder()
         .errorCode(HttpStatus.BAD_REQUEST)
+        .errorMessage(serviceException.getMessage())
+        .errorTime(LocalDateTime.now())
+        .build();
+  }
+
+  @ResponseBody
+  @ExceptionHandler(value = {ProductNotFoundException.class})
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ErrorDTO handleException(ProductNotFoundException serviceException) {
+    log.error(serviceException.getMessage(), serviceException);
+    return ErrorDTO.builder()
+        .errorCode(HttpStatus.NOT_FOUND)
         .errorMessage(serviceException.getMessage())
         .errorTime(LocalDateTime.now())
         .build();

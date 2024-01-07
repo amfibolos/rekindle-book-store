@@ -14,6 +14,7 @@ import com.rekindle.book.store.domain.payment.valueobject.CreditHistoryId;
 import com.rekindle.book.store.domain.payment.valueobject.TransactionType;
 import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryCommand;
 import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryResponse;
+import com.rekindle.book.store.payment.application.service.dto.CreditHistoryDto;
 import com.rekindle.book.store.payment.application.service.dto.PaymentRequest;
 import com.rekindle.book.store.payment.application.service.exception.PaymentApplicationServiceException;
 import com.rekindle.book.store.payment.application.service.mapper.PaymentDataMapper;

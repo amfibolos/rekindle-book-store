@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,13 +27,22 @@ import lombok.Setter;
 public class BookstoreEntity {
 
   @Id
+  @NotNull
   private UUID bookstoreId;
   @Id
+  @NotNull
   private UUID productId;
+  @NotBlank
+  @NotNull
   private String bookstoreName;
+  @NotNull
   private Boolean bookstoreActive;
+  @NotBlank
+  @NotNull
   private String productName;
+  @NotNull
   private BigDecimal productPrice;
+  @NotNull
   private Boolean productAvailable;
 
   @Override

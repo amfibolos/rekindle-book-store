@@ -1,9 +1,9 @@
 package com.rekindle.book.store.payment.application.service.ports.input.service;
 
-import com.rekindle.book.store.domain.payment.entity.CreditHistory;
 import com.rekindle.book.store.payment.application.service.PaymentRequestHelper;
 import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryCommand;
 import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryResponse;
+import com.rekindle.book.store.payment.application.service.dto.CreditHistoryDto;
 import com.rekindle.book.store.payment.application.service.dto.PaymentStatusDto;
 import com.rekindle.book.store.payment.application.service.exception.PaymentApplicationServiceException;
 import com.rekindle.book.store.payment.application.service.mapper.PaymentDataMapper;
@@ -49,7 +49,14 @@ public class PaymentApplicationServiceImpl implements PaymentApplicationService 
   }
 
   @Override
-  public List<CreditHistory> retrieveCreditHistoryByCustomerId(UUID customerId) {
-    return paymentRequestHelper.retrieveCreditHistoryByCustomerId(customerId);
+  public List<CreditHistoryDto> retrieveCreditHistoryByCustomerId(UUID customerId) {
+    return paymentRequestHelper.retrieveCreditHistoryByCustomerId(customerId).stream()
+        .map(x -> CreditHistoryDto.builder()
+            .creditId(x.getId().getValue())
+            .customerId(x.getCustomerId().getValue())
+            .totalPrice(x.getAmount().getAmount())
+            .transactionType(x.getTransactionType())
+            .build())
+        .toList();
   }
 }

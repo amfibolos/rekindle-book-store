@@ -3,9 +3,11 @@ package com.rekindle.book.store.payment.rest.controller;
 import com.rekindle.book.store.domain.payment.entity.CreditHistory;
 import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryCommand;
 import com.rekindle.book.store.payment.application.service.dto.CreateCreditEntryResponse;
+import com.rekindle.book.store.payment.application.service.dto.CreditHistoryDto;
 import com.rekindle.book.store.payment.application.service.dto.PaymentStatusDto;
 import com.rekindle.book.store.payment.application.service.ports.input.service.PaymentApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
@@ -45,10 +47,10 @@ public class PaymentController {
       summary = "Get credit history information by customer id",
       description = "REST API GET method to fetch whole credit history")
   @GetMapping("/credit/history/{customerId}")
-  public ResponseEntity<List<CreditHistory>> getCustomerCreditHistory(
+  public ResponseEntity<List<CreditHistoryDto>> getCustomerCreditHistory(
       @PathVariable("customerId") UUID customerId
   ) {
-    List<CreditHistory> historyList = paymentApplicationService.retrieveCreditHistoryByCustomerId(
+    List<CreditHistoryDto> historyList = paymentApplicationService.retrieveCreditHistoryByCustomerId(
         customerId);
     log.info("Credit history belonging to customer {} has been retrieved", customerId);
     return ResponseEntity.ok(historyList);
@@ -59,7 +61,7 @@ public class PaymentController {
       description = "REST API POST method to add money to customer's wallet")
   @PostMapping("/credit")
   public ResponseEntity<CreateCreditEntryResponse> creditUserWallet(
-      @RequestBody
+      @Valid @RequestBody
       CreateCreditEntryCommand createCreditEntryCommand
   ) {
     CreateCreditEntryResponse response = paymentApplicationService.creditUserWallet(

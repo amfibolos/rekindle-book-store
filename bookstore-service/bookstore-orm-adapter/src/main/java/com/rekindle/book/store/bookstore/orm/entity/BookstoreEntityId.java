@@ -1,5 +1,7 @@
 package com.rekindle.book.store.bookstore.orm.entity;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -15,8 +17,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookstoreEntityId implements Serializable {
-
+  @NotNull
   private UUID bookstoreId;
+  @NotNull
   private UUID productId;
 
   @Override

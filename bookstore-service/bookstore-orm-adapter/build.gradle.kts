@@ -14,6 +14,7 @@ dependencies {
     implementation(project(":bookstore-service:bookstore-application-service"))
     implementation(project(":domain:domain-bookstore"))
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-logging")
     compileOnly("org.projectlombok:lombok")
