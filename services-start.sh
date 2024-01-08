@@ -1,4 +1,31 @@
 #!/bin/bash
+usage="For kafka in docker connection choose [-d], for local kafka connection choose [-l]"
+kafka_opts=''
+has_l=0
+has_d=0
+while getopts 'dlh' increment;
+do
+  case "${increment}" in
+    d) has_d=1 ;;
+    l) has_l=1 ;;
+    h) echo "$usage"
+       exit 1 ;;
+    *) echo "$usage" >&2
+       exit 1 ;;
+  esac
+done
+if ((has_l + has_d > 1)); then
+    echo "either [-d] or [-l] flag is allowed. Select [-h] for help" >&2
+    exit 1
+elif ((has_l + has_d == 0)); then
+    echo "either [-d] or [-l] flag must be chosen. Select [-h] for help" >&2
+    exit 1
+fi
+if ((has_d)); then
+    kafka_opts="kafka-docker"
+elif ((has_l)); then
+    kafka_opts="kafka"
+fi
 
 ROOTDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 EUREKA_SERVER_DIR="$ROOTDIR/infrastructure/eureka-server/build/lib/eureka-server.jar"
@@ -101,13 +128,13 @@ nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka -jar "$AUTH_
 nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre -jar "$CUSTOMER_SERVER_DIR" > /dev/null 2>&1 &
 
 # Starting Bookstore Service
-nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka-docker -jar "$BOOK_SERVER_DIR" > /dev/null 2>&1 &
+nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,$kafka_opts -jar "$BOOK_SERVER_DIR" > /dev/null 2>&1 &
 
 # Starting Order Server
-nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka-docker -jar "$ORDER_SERVER_DIR" > /dev/null 2>&1 &
+nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,$kafka_opts -jar "$ORDER_SERVER_DIR" > /dev/null 2>&1 &
 
 # Starting Payment Server
-nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,kafka-docker -jar "$PAYMENT_SERVER_DIR" > /dev/null 2>&1 &
+nohup "$JAVA_EXE" $DEFAULT_JVM_OPTS -Dspring.profiles.active=eureka,postgre,$kafka_opts -jar "$PAYMENT_SERVER_DIR" > /dev/null 2>&1 &
 
 healthCheck 8181 "Order"
 healthCheck 8182 "Payment"

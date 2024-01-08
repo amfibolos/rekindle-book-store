@@ -1,6 +1,16 @@
 @echo off
-setlocal EnableDelayedExpansion
+set KAFKA_OPTS=
 
+if "%1" == "docker" (
+    set KAFKA_OPTS="kafka-docker"
+) else if "%1" == "local" (
+    set KAFKA_OPTS="kafka"
+) else (
+    echo Invalid parameter. Select either [docker] for kafka docker connection or [local] for local kafka connection
+    exit /b 1
+)
+
+setlocal EnableDelayedExpansion
 IF "%selfWrapped%"=="" (
   REM this is necessary so that we can use "exit" to terminate the batch file,
   REM and all subroutines, but not the original cmd.exe
@@ -61,16 +71,16 @@ start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka -jar "%
 start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka -jar "%AUTH_SERVER_DIR%"
 
 @rem Starting Customer Service
-start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%CUSTOMER_SERVER_DIR%"
+start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre -jar "%CUSTOMER_SERVER_DIR%"
 
 @rem Starting Bookstore Service
-start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%BOOK_SERVER_DIR%"
+start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,%KAFKA_OPTS% -jar "%BOOK_SERVER_DIR%"
 
 @rem Starting Order Server
-start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%ORDER_SERVER_DIR%"
+start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,%KAFKA_OPTS% -jar "%ORDER_SERVER_DIR%"
 
 @rem Starting Payment Server
-start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,kafka -jar "%PAYMENT_SERVER_DIR%"
+start "" "%JAVA_EXE%" %DEFAULT_JVM_OPTS% -Dspring.profiles.active=eureka,postgre,%KAFKA_OPTS% -jar "%PAYMENT_SERVER_DIR%"
 
 call :healthCheck 8181 "Order"
 call :healthCheck 8182 "Payment"

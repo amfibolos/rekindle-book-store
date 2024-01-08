@@ -146,10 +146,14 @@ bookstore-approval-response
 * From root project directory execute:
 ```
 via CMD
-services-start.bat
+services-start.bat local
+or
+services-start.bat docker [if you have kafka established via docker]
 
 via git bash or other terminal
-./services-start.sh
+./services-start.sh -l
+or
+./services-start.sh -d [if you have kafka established via docker]
 ```
 * Should you want to terminate all services, execute:
 ```
