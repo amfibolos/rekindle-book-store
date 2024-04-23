@@ -19,7 +19,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "./volumes/postgre:/var/lib/postgresql/data"
+      - "./volumes/postgre:/var/lib/postgresql/data 777"
     networks:
       rekindle-bookstore-network:
         aliases:
