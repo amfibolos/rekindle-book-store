@@ -21,8 +21,8 @@ services:
       timeout: 5s
       retries: 10
     volumes:
-      - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
-      - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log"
+      - "./volumes/zookeeper/data:/var/lib/zookeeper/data 777"
+      - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log 777"
     networks:
       rekindle-bookstore-network:
         aliases:
@@ -49,7 +49,7 @@ services:
       zookeeper:
         condition: service_healthy
     volumes:
-      - "./volumes/kafka/broker-1:/var/lib/kafka/data"
+      - "./volumes/kafka/broker-1:/var/lib/kafka/data 777"
     networks:
       rekindle-bookstore-network:
         aliases:
@@ -78,7 +78,7 @@ services:
       kafka-broker-1:
         condition: service_healthy
     volumes:
-      - "./volumes/kafka/broker-2:/var/lib/kafka/data"
+      - "./volumes/kafka/broker-2:/var/lib/kafka/data 777"
     networks:
       rekindle-bookstore-network:
         aliases:
@@ -107,7 +107,7 @@ services:
       kafka-broker-2:
         condition: service_healthy
     volumes:
-      - "./volumes/kafka/broker-3:/var/lib/kafka/data"
+      - "./volumes/kafka/broker-3:/var/lib/kafka/data 777"
     networks:
       rekindle-bookstore-network:
         aliases:
