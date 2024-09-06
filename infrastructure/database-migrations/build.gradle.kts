@@ -21,8 +21,10 @@ buildscript {
         classpath("org.flywaydb:flyway-database-postgresql:10.3.0")
     }
 }
+
 flyway {
-    url = "jdbc:postgresql://localhost:5432/postgres"
+    val POSTGRE_URL = System.getenv("POSTGRE_URL") ?: "localhost"
+    url = "jdbc:postgresql://${POSTGRE_URL}:5432/postgres"
     user = "postgres"
     password = "admin"
     driver = "org.postgresql.Driver"
