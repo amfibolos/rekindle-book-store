@@ -1,10 +1,10 @@
-FROM gradle:8.5 as build
+FROM gradle:8.10-jdk21-jammy AS build
 WORKDIR /app
 COPY . .
-RUN gradle clean build
+RUN gradle :infrastructure:config-server:build
 
 FROM amazoncorretto:21
 WORKDIR /app
-COPY --from=build /app/build/libs/config-server.jar .
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "config-server.jar"]
+COPY --from=build /app/infrastructure/config-server/build/lib/config-server.jar .
+EXPOSE 8021
+CMD ["java", "-jar", "config-server.jar"]

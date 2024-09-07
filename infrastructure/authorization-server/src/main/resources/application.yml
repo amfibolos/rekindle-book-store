@@ -2,7 +2,7 @@ server:
   port: 8023
 spring:
   application:
-    name: "authorization-server-ms"
+    name: "authorization-server"
   profiles:
     active: "local"
   config:

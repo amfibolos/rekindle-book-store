@@ -18,152 +18,43 @@
 * [PostgreSQL](https://www.postgresql.org/)
 
 # <span style="color:yellow;"> Getting Started
-## <span style="color:magenta;"> 1. Java
-<span style="color:lime;">You need to have [Java 21](https://corretto.aws/downloads/resources/21.0.1.12.1/amazon-corretto-21.0.1.12.1-windows-x64-jdk.zip) 
-installed and configured.
 
-* <span style="color:lime;">This project was build and tested on amazon **_coretto 21.0.1_**
-* <span style="color:lime;">Create JAVA_HOME system variable and add it to your PATH
+## <span style="color:magenta;"> Docker
 
-## <span style="color:magenta;"> 2. Gradle
-* <span style="color:lime;">The project uses [Gradle 8.5](https://services.gradle.org/distributions/gradle-8.5-bin.zip) 
-as its build tool
-* <span style="color:lime;">Create GRADLE_HOME system variable and add it to your PATH
-* <span style="color:lime;">Alternatively you can use Gradle wrapper which comes with the project
+### <span style="color:magenta;"> 1. Docker Hub images download
+* <span style="color:cyan;">In the root project directory execute the following command
+```
+./docker-compose-hub.sh
+```
 
-## <span style="color:magenta;"> 3. Intellij Idea & Gradle
-* <span style="color:lime;">After importing the repository you may have to set JDK additionally for gradle
-  <img width="460" src="content/intellij.png">
-## <span style="color:magenta;"> For Docker Users
+### <span style="color:magenta;"> 2. Local Docker images setup
+* <span style="color:cyan;">In the root project directory execute the following command
+```
+./docker-compose-local.sh
+```
 
-### <span style="color:magenta;"> 1. Source Code build and docker images setup
-* <span style="color:cyan;">In the root project directory execute the following commands using
-either gradle or ./gradlew
-* <span style="color:cyan;">These will build source code and prepare docker images
-
-
-><li>gradle clean build</li>
-><li>gradle jibDockerBuild</li>
-
-### <span style="color:magenta;"> 2. Infrastructure and ecosystem setup
-
-#### <span style="color:magenta;"> Kafka
-
-* <span style="color:cyan;">Go to docker-compose/rekindle-local directory
-* <span style="color:cyan;">and execute the following commands
-
-><li>cd docker-compose/rekindle-local</li>
-><li>docker-compose -f init_kafka_cluster.yml up -d</li>
-
-* <span style="color:cyan;">wait till all services have started
-
-><li>docker-compose -f init_kafka_topics.yml up</li>
-
-* <span style="color:cyan;">this will add necessary kafka topics to the boostrap servers. Can be
-  deleted afterwards
-
-#### <span style="color:magenta;"> Database & data migration
-><li>docker-compose -f init_rekindle_database.yml up -d --wait</li>
-* <span style="color:cyan;">this will start PostgreSQL database
-* <span style="color:cyan;">then from root project directory execute
-
-><li>gradle flywayMigrate or ./gradlew flywayMigrate -p infrastructure/database-migrations/</li>
-
-#### <span style="color:magenta;"> Microservices
-* <span style="color:cyan;">Go to docker-compose/rekindle-local directory
-
-><li>docker-compose -f init_rekindle_app.yml up -d</li>
-
-* <span style="color:cyan;">this will start all microservices in sequence where some require kafka
-  and the database
-
-* <span style="color:cyan;">later you can just use 
-
-><li>docker-compose -f init_kafka_cluster.yml stop</li>
-><li>docker-compose -f init_kafka_cluster.yml start</li>
-><li>docker-compose -f init_rekindle_app.yml stop</li>
-><li>docker-compose -f init_rekindle_app.yml start</li>
+* <span style="color:cyan;">Whichever you choose it will either
+pull imgaes from https://hub.docker.com/u/damian0malecki or build them locally
+* The infrastructure will include
+```
+- zookeeper
+- 3 kafka brokers
+- schema registry
+- kafka manager
+- postgreSQL
+- Database one-time seeding service
+- Kafka topics one-time seeding service
+- Eureka server
+- Config server
+- Authorization server
+- Gateway server
+- Order service
+- Bookstore service
+- Payment service
+- Customer service
+```
 
 ### <span style="color:magenta;"> THAT'S IT. You're good to go :)
-
-# <span style="color:coral;"> For WINDOWS Manual Installation
-
-### <span style="color:coral;">1. Source Code Build
-* <span style="color:cyan;">In the root project directory execute the following command using
-  either gradle or ./gradlew
-
-><li>gradle clean build</li>
-
-### <span style="color:coral;">2. Database
-
-* Download and install [PostgreSQL version 16.1](https://sbp.enterprisedb.com/getfile.jsp?fileid=1258792)
-* Create database called **_postgres_** with username **_postgres_** and password **_admin_**
-* listening on port **_5432_**
-* Then from **_root project directory_** run the following command
-
-> <li>gradle flywayMigrate -p infrastructure/database-migrations/</li>
-
-### <span style="color:coral;">3. Kafka
-* Download and install [conduktor](https://releases.conduktor.io/win-msi) application
-* Create free account and log in
-
-<p align="center">
-  <img width="400" src="content/conduktor_0.png">
-</p>
-
-* Click on "Start local Kafka cluster"
-<p align="center">
-  <img width="400" src="content/conduktor_1.png">
-</p>
-
-* Name the cluster however you want. Download cluster version 3.1.0 then check and download Schema Registry
-* Finally, start the cluster
-<p align="center">
-  <img width="400" src="content/conduktor_2.png">
-</p>
-
-* Go to tab "Topics" and click "Create"
-<p align="center">
-  <img width="500" src="content/conduktor_3.png">
-</p>
-
-* Create 4 topics each with 3 partitions and 1 replication factor
-```
-payment-request
-payment-response
-bookstore-approval-request
-bookstore-approval-response
-```
-<p align="center">
-  <img width="500" src="content/conduktor_4.png">
-</p>
-
-<p align="center">
-  <img width="500" src="content/conduktor_5.png">
-</p>
-
-### <span style="color:coral;">4. Services start up & termination
-* From root project directory execute:
-```
-via CMD
-services-start.bat local
-or
-services-start.bat docker [if you have kafka established via docker]
-
-via git bash or other terminal
-./services-start.sh -l
-or
-./services-start.sh -d [if you have kafka established via docker]
-```
-* Should you want to terminate all services, execute:
-```
-via CMD
-services-stop.bat
-
-via git bash or other terminal
-./services-stop.sh
-```
-### <span style="color:coral;"> THAT'S IT. You're good to go :)
 
 ## <span style="color:gold;"> Documentation
 
@@ -266,7 +157,7 @@ via git bash or other terminal
 * <span style="color:orange;">In case of docker container removals, contents of these folders also
   have to be deleted
   manually before creating the build anew. Alternatively there is a script which does all that
-><li>remove-volume-mapping.sh</li>
+><li>./remove-volume-mapping.sh</li>
 
 # <span style="color:cyan;">STILL UNDER CONSTRUCTION
 
