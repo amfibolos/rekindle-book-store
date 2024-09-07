@@ -52,7 +52,7 @@ public class GatewayServerApplication {
                 "/api/v1/orders/${segment}"))
             .uri("lb://ORDER-MICROSERVICE"))
         .route("authorization_route", r -> r.path("/oauth2/token")
-            .uri("lb://AUTHORIZATION-SERVER-MS"))
+            .uri("lb://AUTHORIZATION-SERVER"))
         .route("customer_route_1", r -> r.path("/rekindle/customers")
             .filters(f -> f.rewritePath("/rekindle/customers",
                 "/api/v1/customers"))

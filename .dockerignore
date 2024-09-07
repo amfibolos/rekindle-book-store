@@ -1,0 +1,74 @@
+# Local
+/docker-compose/*
+# Ignore Gradle build directories and files
+.gradle/
+build/
+!build/libs/
+!build/distributions/
+
+# Ignore Maven build directories and files
+target/
+!.mvn/
+!.mvn/wrapper/
+pom.xml
+pom.xml.tag
+
+# Ignore IntelliJ IDEA project files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Ignore Eclipse project files
+.project
+.classpath
+
+# Ignore temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+
+# Ignore Git files
+.git/
+.gitignore
+
+# Ignore local environment files
+.env
+*.env
+
+# Ignore Docker-related files
+docker-compose.yml
+Dockerfile
+
+# Ignore IDE-specific directories and files
+.vscode/
+*.code-workspace
+
+# Ignore operating system files
+Thumbs.db
+Desktop.ini
+
+# Ignore npm and node_modules (if using Node.js in conjunction with your Java/Kotlin app)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Ignore JUnit and other test-related directories (if not needed in the container)
+test-results/
+*.test.*
+
+# Ignore documentation files (if not needed in the container)
+docs/
+*.pdf
+*.md
+
+# Ignore other files you don’t want to include in Docker context
+*.zip
+*.tar.gz
+*.tar.bz2
+*.rar
+*.7z

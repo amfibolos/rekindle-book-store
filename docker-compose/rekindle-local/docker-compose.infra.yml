@@ -1,10 +1,12 @@
 networks:
-  rekindle-bookstore-network:
+  default:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.2.0/24
 services:
-  zookeeper:
+  zookeeper-service:
     image: confluentinc/cp-zookeeper:${ZOOKEEPER_VERSION}
-    container_name: zookeeper
     ports:
       - "2181:2181"
     environment:
@@ -23,10 +25,13 @@ services:
     volumes:
       - "./volumes/zookeeper/data:/var/lib/zookeeper/data 777"
       - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log 777"
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "zookeeper"
+    env_file:
+      - ./.env
+    profiles:
+      - infra
+      - zookeeper
+      - all
+
   kafka-broker-1:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}
     container_name: kafka-broker-1
@@ -34,87 +39,94 @@ services:
       - "19092:19092"
     environment:
       KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-service:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,LISTENER_LOCAL://localhost:19092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_COMPRESSION_TYPE: producer
+    env_file:
+      - ./.env
     healthcheck:
       test: kafka-topics --bootstrap-server kafka-broker-1:9092 --list
       interval: 10s
       timeout: 5s
       retries: 10
     depends_on:
-      zookeeper:
+      zookeeper-service:
         condition: service_healthy
     volumes:
       - "./volumes/kafka/broker-1:/var/lib/kafka/data 777"
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "kafka-broker-1"
+    profiles:
+      - infra
+      - broker_1
+      - all
+
   kafka-broker-2:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    container_name: kafka-broker-2
     ports:
       - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-service:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_COMPRESSION_TYPE: producer
+    env_file:
+      - ./.env
     healthcheck:
       test: kafka-topics --bootstrap-server kafka-broker-2:9092 --list
       interval: 10s
       timeout: 5s
       retries: 10
+    profiles:
+      - infra
+      - broker_2
+      - all
     depends_on:
-      zookeeper:
+      zookeeper-service:
         condition: service_healthy
       kafka-broker-1:
         condition: service_healthy
     volumes:
       - "./volumes/kafka/broker-2:/var/lib/kafka/data 777"
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "kafka-broker-2"
+
   kafka-broker-3:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}
     container_name: kafka-broker-3
     ports:
       - "39092:39092"
+    profiles:
+      - infra
+      - broker_3
+      - all
     environment:
       KAFKA_BROKER_ID: 3
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-service:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-3:9092,LISTENER_LOCAL://localhost:39092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_COMPRESSION_TYPE: producer
+    env_file:
+      - ./.env
     healthcheck:
       test: kafka-topics --bootstrap-server kafka-broker-3:9092 --list
       interval: 10s
       timeout: 5s
       retries: 10
     depends_on:
-      zookeeper:
+      zookeeper-service:
         condition: service_healthy
       kafka-broker-2:
         condition: service_healthy
     volumes:
       - "./volumes/kafka/broker-3:/var/lib/kafka/data 777"
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "kafka-broker-3"
+
   schema-registry:
     image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
-    container_name: schema-registry
     depends_on:
       kafka-broker-1:
         condition: service_healthy
@@ -122,8 +134,14 @@ services:
         condition: service_healthy
       kafka-broker-3:
         condition: service_healthy
+    env_file:
+      - ./.env
     ports:
       - "8081:8081"
+    profiles:
+      - infra
+      - registry
+      - all
     healthcheck:
       test: curl --output /dev/null --silent --head --fail http://schema-registry:8081/subjects
       interval: 10s
@@ -131,26 +149,45 @@ services:
       retries: 10
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper-service:2181'
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
       SCHEMA_REGISTRY_DEBUG: 'true'
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "schema-registry"
+
   kafka-manager:
     image: hlebalbau/kafka-manager:stable
-    container_name: kafka-manager
     restart: always
     ports:
       - "9000:9000"
     environment:
       ZK_HOSTS: "zookeeper:2181"
+    profiles:
+      - infra
+      - manager
+      - all
     depends_on:
       schema-registry:
         condition: service_healthy
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "kafka-manager"
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    env_file:
+      - ./.env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 30s
+      start_period: 5s
+      retries: 3
+    ports:
+      - "5432:5432"
+    profiles:
+      - infra
+      - db
+      - all
+    volumes:
+      - "./volumes/postgre:/var/lib/postgresql/data 777"

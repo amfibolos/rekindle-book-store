@@ -1,11 +1,29 @@
-networks:
-  rekindle-bookstore-network:
-    driver: bridge
 services:
+  database-seed:
+    image: rekindle/db-migrate
+    build:
+      context: ../../
+      dockerfile: infrastructure/database-migrations/Dockerfile
+    env_file:
+      - ./.env
+    profiles:
+      - infra
+      - seed
+      - all
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   init-kafka-topics:
     image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    container_name: init-kafka-topics
     entrypoint: [ '/bin/sh', '-c' ]
+    env_file:
+      - ./.env
+    profiles:
+      - infra
+      - seed
+      - topics
+      - all
     command: |
       "
       # block until kafka is reachable
@@ -29,7 +47,6 @@ services:
       echo -e 'Successfully created the following topics:'
       kafka-topics --bootstrap-server kafka-broker-1:9092 --list
       "
-    networks:
-      rekindle-bookstore-network:
-        aliases:
-          - "init-kafka-topics"
+    depends_on:
+      schema-registry:
+        condition: service_healthy
