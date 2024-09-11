@@ -10,6 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: List Directories
+        run: |
+          ls -la 
+
       - name: Setup Java 21 JDK
         uses: actions/setup-java@v4
         with:
