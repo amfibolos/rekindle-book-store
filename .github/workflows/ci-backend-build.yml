@@ -24,10 +24,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4.0.1
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: gradle build
 
       - name: Test with Gradle
-        run: ./gradlew test
+        run: gradle test
 
 #      - name: Test Report
 #        uses: dorny/test-reporter@v1.9.1
