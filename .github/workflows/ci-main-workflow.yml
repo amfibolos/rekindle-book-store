@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: Docker
     outputs:
-      backend-build-needed: ${{ steps.filter.outputs.backend-build-needed }}
-#      backend-tests-needed: ${{ steps.filter.outputs.backend-tests-needed }}
+      backend-build-required: ${{ steps.filter.outputs.backend-build-required }}
+#      backend-tests-required: ${{ steps.filter.outputs.backend-tests-required }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,7 +58,7 @@ jobs:
 
   backend-build:
     needs: setup
-    if: ${{ needs.setup.outputs.backend-build-needed == 'true' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ needs.setup.outputs.backend-build-required == 'true' || github.event_name == 'workflow_dispatch' }}
     uses: ./.github/workflows/ci-backend-build.yml
     secrets: inherit
 
