@@ -1,0 +1,73 @@
+name: "Main CI Rekindle Workflow"
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+  workflow_dispatch:
+
+jobs:
+  setup:
+    name: "Setup"
+    runs-on: ubuntu-latest
+    environment: Docker
+    outputs:
+      backend-build-required: ${{ steps.filter.outputs.backend-build-required }}
+#      backend-tests-required: ${{ steps.filter.outputs.backend-tests-required }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify mixed line endings
+        run: |
+          numberOfFiles=$(find . ! -path "./git/*" -not -type d -exec file "{}" ";" | grep " CRLF, LF " | wc -l)
+          if [ $numberOfFiles -gt 0 ]
+          then 
+            echo "There are files with mixed line endings!"
+            exit 1
+          else
+            echo "There are no files with mixed line endings"
+          fi
+          echo "Current number of files with mixed line endings: $numberOfFiles"
+
+      - name: Setup Path filters
+        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@v2.11.1
+        id: filter
+        with:
+          filters: |
+            backend-build-required:
+              - "bookstore-service/**"
+              - "buildSrc/**"
+              - "customer-service/**"
+              - "docker-compose/**"
+              - "domain/**"
+              - "infrastructure/**"
+              - "order-service/**"
+              - "payment-service/**"
+              - ".github/**"
+#            backend-tests-required:
+#              - "bookstore-service/**"
+#              - "buildSrc/**"
+#              - "customer-service/**"
+#              - "docker-compose/**"
+#              - "domain/**"
+#              - "infrastructure/**"
+#              - "order-service/**"
+#              - "payment-service/**"
+#              - ".github/**"
+
+  backend-build:
+    needs: setup
+    if: ${{ needs.setup.outputs.backend-build-required == 'true' || github.event_name == 'workflow_dispatch' }}
+    uses: ./.github/workflows/ci-backend-build.yml
+    secrets: inherit
+
+  final:
+    needs: [ backend-build ]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if any job has failed
+        if: ${{ needs.backend-build.result == 'failure' }}
+        run: exit 1
+      - run: echo "CI Workflow has been successful"

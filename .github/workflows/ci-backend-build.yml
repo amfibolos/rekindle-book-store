@@ -1,0 +1,40 @@
+name: "CI Backend build"
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: List Directories
+        run: |
+          ls -la 
+
+      - name: Setup Java 21 JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: corretto
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4.0.1
+        with:
+          gradle-version: "8.5"
+
+      - name: Build with Gradle
+        run: gradle build
+
+      - name: Test with Gradle
+        run: gradle test
+
+#      - name: Test Report
+#        uses: dorny/test-reporter@v1.9.1
+#        if: success() || failure()
+#        with:
+#          name: JUnit Tests
+#          path: reports/jest-*.xml
+#          reporter: java-junit
